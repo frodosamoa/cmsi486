@@ -1,27 +1,60 @@
+-- 2. 
+
+CREATE TABLE person
+	(
+     id int primary key, 
+     name varchar(50), 
+     street varchar(25),
+     city varchar(25)
+    );
+
+CREATE TABLE company
+	(
+     id int primary key, 
+     name varchar(50), 
+     city varchar(30)
+    );
+
+CREATE TABLE works
+	(
+     personid int primary key, 
+     companyid int, 
+     salary int
+    );
+
+CREATE TABLE manages
+    (
+    managerid int,
+    employeeid int primary key
+    );
+
+-- 3.
 -- a. The names of people that work for First Bank Corporation (FBC).
 
-SELECT PERSON.name
-FROM PERSON, WORKS, COMPANY
-WHERE PERSON.id = WORKS.personid
-	  AND COMPANY.name = "FBC";
+SELECT p.name
+FROM PERSON p
+INNER JOIN WORKS w ON p.id = w.personid
+INNER JOIN COMPANY c ON w.companyid = c.id
+WHERE c.name = "FBC";
 
 -- b. The names and cities of residence for all FBC employees.
 
-SELECT person.name, person.ci
-FROM person INNER JOIN works
-ON person.id = works.personid
-INNER JOIN company
-ON works.companyid = company.id
-WHERE company.name = "FBC";
+SELECT p.name, p.city
+FROM PERSON p
+INNER JOIN WORKS w ON p.id = w.personid
+INNER JOIN COMPANY c ON w.companyid = c.id
+WHERE c.name = "FBC";
 
 -- c. The names and addresses of all FBC employees earning under 50K per year.
 
-SELECT p.name, p.street, p.city
-FROM person INNER JOIN works
-ON works.salary < 50000
-INNER JOIN company
-ON works.companyid = company.id
-WHERE company.name = "FBC";
+SELECT p.name,
+	   p.street,
+	   p.city
+FROM PERSON p
+INNER JOIN WORKS w ON p.id = w.personid
+INNER JOIN COMPANY c ON w.companyid = c.id
+WHERE c.name = "FBC"
+	AND w.salary < 50000;
 
 -- d. All people who live in the same city in which they work.
 
