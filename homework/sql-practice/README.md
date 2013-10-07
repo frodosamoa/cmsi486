@@ -9,7 +9,7 @@
 
    Draw an EER diagram for these relations and their attributes.
 
-![Problem 1 EER Diagram](http://i.imgur.com/9AjKvs5.png)
+   ![Problem 1 EER Diagram](http://i.imgur.com/9AjKvs5.png)
 
 2. For the relations in the preceding problem, give SQL DDL to define the relations.
 
