@@ -7,7 +7,9 @@
 		WORKS(personid, companyid, salary)
 		MANAGES(managerid, employeeid)
 
-Draw an EER diagram for these relations and their attributes.
+   Draw an EER diagram for these relations and their attributes.
+
+![Problem 1 EER Diagram](http://i.imgur.com/eZrSJo5.png)
 
 2. For the relations in the preceding problem, give SQL DDL to define the relations.
 
@@ -22,5 +24,7 @@ Draw an EER diagram for these relations and their attributes.
 	* All companies located in every city in which SBC is located.
 	* The names of people that work at no company.
 	* All companies that have more than 20 employees.
+
+    [Here](https://github.com/frodosamoa/csmi486/blob/master/homework/sql-practice/practice-problems.sql) are the SQL queries.
 
 4. Give relational calculus expressions for each of the queries in the preceding problem.
