@@ -1,70 +1,35 @@
--- The code below is here: http://sqlfiddle.com/#!2/33faa/31
+-- The code below is here: http://sqlfiddle.com/#!2/90357
 
 -- 2. 
 
 CREATE TABLE person (
-     id      INT NOT NULL PRIMARY KEY AUTO_INCREMENT, 
-     pname    VARCHAR(50), 
-     pstreet  VARCHAR(25),
-     pcity    VARCHAR(25);
+     id         INT NOT NULL PRIMARY KEY AUTO_INCREMENT, 
+     name       VARCHAR(50), 
+     street     VARCHAR(25),
+     city       VARCHAR(25)
 );
 
 CREATE TABLE company (
-     id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, 
-     cname VARCHAR(50), 
-     ccity VARCHAR(30);
+     id         INT NOT NULL PRIMARY KEY AUTO_INCREMENT, 
+     name       VARCHAR(50), 
+     city       VARCHAR(30)
 );
 
 CREATE TABLE works (
-     personid INT, 
-     companyid INT, 
-     salary INT,
+     personid   INT PRIMARY KEY, 
+     companyid  INT, 
+     salary     INT,
      FOREIGN KEY (personid) REFERENCES person(id),
-     FOREIGN KEY (companyid) REFERENCES company(id);
+     FOREIGN KEY (companyid) REFERENCES company(id)
 );
 
 CREATE TABLE manages (
-    managerid INT,
-    employeeid INT PRIMARY KEY;
+    managerid   INT,
+    employeeid  INT PRIMARY KEY
 );
 
--- TEST TABLES (Yes, they are very small, but should present a case
--- where it is needed for a homework problem)
-
-INSERT INTO person
-(id, pname, pstreet, pcity)
-VALUES
-(1, "Jon", "Regis", "LA"),
-(2, "Ted", "Regis", "Houston"),
-(3, "Julia", "Regis", "LA"),
-(4, "Bill T", "Regis", "LA"),
-(5, "Bill H", "Regis", "LA"),
-(6, "Joe", "La Cienega", "LA");
-
-INSERT INTO company
-(id, pname, pcity)
-VALUES
-(1, "FBC", "LA"),
-(2, "Piknik", "Houston"),
-(3, "SBC", "Phoenix"),
-(4, "Sketchers", "LA"),
-(5, "Loyolan", "LA");
-
-INSERT INTO works
-(personid, companyid, salary)
-VALUES
-(1, 1, 49500),
-(2, 2, 30000),
-(3, 1, 50001),
-(4, 1, 300),
-(5, 5, 40000);
-
-INSERT INTO manages
-(managerid, employeeid)
-VALUES
-(1, 3);
-
 -- 3.
+
 -- a. The names of people that work for First Bank Corporation (FBC).
 
 SELECT p.pname
@@ -136,7 +101,6 @@ WHERE c1.ccity = c2.ccity
   AND c1.cname = 'SBC'
   AND c2.cname != 'SBC';
 
-
 -- i. The names of people that work at no company.
 
 SELECT p.pname
@@ -151,14 +115,3 @@ FROM COMPANY c
 INNER JOIN WORKS w ON c.id = c.companyid
 GROUP by c.cname
 HAVING num_employees > 20
-
-
-
-
-
-
-
-
-
-
-
