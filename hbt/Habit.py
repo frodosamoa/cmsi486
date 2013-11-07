@@ -9,7 +9,7 @@ class Habit:
         self.habits = self.connection.hbt.habits
 
    
-    def insert_habit(self, name, occurence):
+    def insert_habit(self, name, times, occurence, reminders):
         print 'inserting habit', name, times, occurence, reminders
 
         habit = {'name': name,
@@ -40,7 +40,6 @@ class Habit:
                           'occurence' : habit['interval']['occurence']
                         },
                       'reminders' : habit['reminders']})
-                
 
         return l
 
