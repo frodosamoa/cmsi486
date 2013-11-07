@@ -8,10 +8,9 @@ import re
 from pymongo import MongoClient
 
 @bottle.route('/')
-def habits():
+def get_habits():
     l = habits.get_habits(10)
     return bottle.template('habits_template', dict(myhabits=l))
-
 
 
 
