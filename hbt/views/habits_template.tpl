@@ -9,6 +9,8 @@
 
 %for habit in myhabits:
 <h2>{{habit['name']}}</h2>
+<h3>{{habit['interval']['times']}} time(s) {{habit['interval']['occurence']}}</h3>
+<h3>{{habit['reminders']}}</h3>
 %end
 </body>
 </html>
