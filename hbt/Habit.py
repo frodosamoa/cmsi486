@@ -9,16 +9,22 @@ class Habit:
         self.habits = self.connection.hbt.habits
 
    
-    def insert_habit(self, name):
-        print "inserting habit", name
+    def insert_habit(self, name, occurence):
+        print 'inserting habit', name, times, occurence, reminders
 
-        habit = {"name": name}
+        habit = {'name': name,
+                 'interval' : {
+                        'times' : times,
+                        'occurence' : occurence
+                    },
+                 'reminders' : reminders
+                }
         try:
             self.habits.insert(habit)
-            print "inserting the habit"
+            print 'inserting the habit'
         except:
-            print "error inserting habit"
-            print "unexpected error:", sys.exc_info()[0]
+            print 'error inserting habit'
+            print 'unexpected error:', sys.exc_info()[0]
 
    
     def get_habits(self, num_habits):
@@ -28,7 +34,13 @@ class Habit:
         l = []
 
         for habit in cursor:
-            l.append({'name': habit['name']})
+            l.append({'name': habit['name'],
+                      'interval' : {
+                          'times' : habit['interval']['times'],
+                          'occurence' : habit['interval']['occurence']
+                        },
+                      'reminders' : habit['reminders']})
+                
 
         return l
 
