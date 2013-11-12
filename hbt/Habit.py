@@ -43,7 +43,21 @@ class Habit:
 
         return l
 
+    def get_habit_by_category(self, category, num_habits):
 
+        cursor = self.habits.find({}, {'categories' : { '$in' : [category] } } ).limit(num_habits)
+
+        l = []
+
+        for habit in cursor:
+            l.append({'name': habit['name'],
+                      'interval' : {
+                          'times' : habit['interval']['times'],
+                          'occurence' : habit['interval']['occurence']
+                        },
+                      'reminders' : habit['reminders']})
+
+        return l
 
 
 

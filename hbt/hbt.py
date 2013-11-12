@@ -5,6 +5,7 @@ import Habit
 import cgi
 import re
 
+from bottle import static_file
 from pymongo import MongoClient
 
 @bottle.route('/')
@@ -12,19 +13,8 @@ def get_habits():
     l = habits.get_habits(10)
     return bottle.template('habits_template', dict(myhabits=l))
 
-# @bottle.get('/post/<permalink>')
-# def habit(permalink='notfound'):
-
-#     print 'about to query on permalink = ', permalink
-#     post = posts.get_post_by_permalink(permalink)
-
-#     if post is None:
-#         bottle.redirect('/post_not_found')
-
-#     # init comment form fields for additional comment
-#     comment = {'name': '', 'body': '', 'email': ''}
-
-#     return bottle.template('entry_template', dict(post=post, username=username, errors='', comment=comment))
+# @bottle.get('/categories')
+# def get_categories():
 
 
 @bottle.get('/newhabit')
@@ -43,6 +33,18 @@ def post_newhabit():
 
     bottle.redirect('/')
 
+
+@bottle.get('/<filename:re:.*\.js>')
+def bootstrap_javascript(filename):
+    return static_file(filename, root='bootstrap/js')
+
+@bottle.get('/<filename:re:.*\.css>')
+def bootstrap_stylesheet(filename):
+    return static_file(filename, root='bootstrap/css')
+
+@bottle.get('/<filename:re:.*\.png>')
+def bootstrap_images(filename):
+    return static_file(filename, root='bootstrap/img')
 
 client = MongoClient('localhost', 27017)
 database = client.hbt

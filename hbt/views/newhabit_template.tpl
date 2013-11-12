@@ -1,22 +1,26 @@
 <!DOCTYPE html>
 <html>
-<head>
-<title>Habits</title>
-</head>
-<body>
+	<head>
+		<title>Habits</title>
+		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+	</head>
+	<body>
+	<h1>New habit</h1>
+	<form action="/newhabit" method="POST">
+	<h2>Name</h2>
+	<input type="text" name="name" size="120" value="{{name}}"><br>
+	<h2>Times<h2>
+	<input type="text" name="times" size="120" value="{{times}}"><br>
+	<h2>Occurence</h2>
+	<input type="text" name="occurence" size="120" value="{{occurence}}"><br>
+	<h2>Reminders</h2>
+	<input type="text" name="reminders" size="120" value="{{reminders}}"><br>
 
-<h1>New habit</h1>
+	<input type="submit" value="Submit">
 
-<form action="/newhabit" method="POST">
-<h2>Name</h2>
-<input type="text" name="name" size="120" value="{{name}}"><br>
-<h2>Times<h2>
-<input type="text" name="times" size="120" value="{{times}}"><br>
-<h2>Occurence</h2>
-<input type="text" name="occurence" size="120" value="{{occurence}}"><br>
-<h2>Reminders</h2>
-<input type="text" name="reminders" size="120" value="{{reminders}}"><br>
 
-<input type="submit" value="Submit">
-</body>
+
+	<script src="//code.jquery.com/jquery.js"></script>
+	<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
+	</body>
 </html>
