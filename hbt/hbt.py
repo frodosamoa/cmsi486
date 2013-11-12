@@ -5,51 +5,53 @@ import Habit
 import cgi
 import re
 
-from bottle import static_file
+from bottle import route, get, post, put, debug, run, request, redirect, template
 from pymongo import MongoClient
 
-@bottle.route('/')
+@route('/')
 def get_habits():
     l = habits.get_habits(10)
-    return bottle.template('habits_template', dict(myhabits=l))
-
-# @bottle.get('/categories')
-# def get_categories():
+    return template('habits_template', dict(myhabits=l))
 
 
-@bottle.get('/newhabit')
-def get_newhabit():
+@route('/login')
+def login():
+    return template('login')
 
-    return bottle.template('newhabit_template', dict(name='', times = '', occurence='', reminders=''))
+@get('/newhabit')
+def newhabit():
 
-@bottle.post('/newhabit')
-def post_newhabit():
-    name = bottle.request.forms.get('name')
-    times = bottle.request.forms.get('times')
-    occurence = bottle.request.forms.get('occurence')
-    reminders = bottle.request.forms.get('reminders')
+    return template('newhabit_template', dict(name='', times = '', occurence='', reminders=''))
 
-    habits.insert_habit(name, times, occurence, reminders)
+@post('/newhabit')
+def post_new_habit():
+    name = request.forms.get('name')
+    times = request.forms.get('times')
+    occurence = request.forms.get('occurence')
+    reminders = request.forms.get('reminders')
+    categories = request.forms.get('categories')
+    habits.insert_habit(name, times, occurence, reminders, categories)
 
-    bottle.redirect('/')
+    redirect('/')
 
+@put('/edithabit')
+def edit_habit():
+    name = request.forms.get('name')
+    times = request.forms.get('times')
+    occurence = request.forms.get('occurence')
+    reminders = request.forms.get('reminders')
+    categories = request.forms.get('categories')
 
-@bottle.get('/<filename:re:.*\.js>')
-def bootstrap_javascript(filename):
-    return static_file(filename, root='bootstrap/js')
+    habits.insert_habit(name, times, occurence, reminders, categories)
 
-@bottle.get('/<filename:re:.*\.css>')
-def bootstrap_stylesheet(filename):
-    return static_file(filename, root='bootstrap/css')
+    redirect('/')
 
-@bottle.get('/<filename:re:.*\.png>')
-def bootstrap_images(filename):
-    return static_file(filename, root='bootstrap/img')
 
 client = MongoClient('localhost', 27017)
 database = client.hbt
 
 habits = Habit.Habit(database)
+# checks = Checks.Check(database)
 
-bottle.debug(True)
-bottle.run(host='localhost', port=8080) 
+debug(True)
+run(host='localhost', port=8080) 
