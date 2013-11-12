@@ -5,18 +5,20 @@
 		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
 	</head>
 	<body>
-	<h1>New habit</h1>
+	<h2>New habit</h2>
 	<form action="/newhabit" method="POST">
-	<h2>Name</h2>
+	<h4>Name</h4>
 	<input type="text" name="name" size="120" value="{{name}}"><br>
-	<h2>Times<h2>
+	<h4>Times<h4>
 	<input type="text" name="times" size="120" value="{{times}}"><br>
-	<h2>Occurence</h2>
+	<h4>Occurence</h4>
 	<input type="text" name="occurence" size="120" value="{{occurence}}"><br>
-	<h2>Reminders</h2>
+	<h4>Reminders</h4>
 	<input type="text" name="reminders" size="120" value="{{reminders}}"><br>
+	<h4>Categories</h4>
+	<input type="text" name="categories" size="120" value="{{categories}}"><br>
 
-	<input type="submit" value="Submit">
+	<button type="submit" class="btn btn-success"> Add habit</button>
 
 
 
