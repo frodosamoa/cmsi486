@@ -36,11 +36,4 @@ class Day:
         return l
 
     def update_day(self, day):
-
-
-
-
-
-
-
-
+        return 0;

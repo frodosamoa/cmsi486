@@ -17,7 +17,7 @@ class Habit:
                         'times' : times,
                         'occurence' : occurence
                     },
-                 'reminders' : reminders
+                 'reminders' : reminders,
                 }
         try:
             self.habits.insert(habit)
@@ -42,6 +42,9 @@ class Habit:
                       'reminders' : habit['reminders']})
 
         return l
+
+    def update_habit(self):
+        return 0
 
     def get_habit_by_category(self, category, num_habits):
 
