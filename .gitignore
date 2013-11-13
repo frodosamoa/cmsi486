@@ -1,1 +1,4 @@
 hbt/*.pyc
+*.aux
+*.log
+*.gz
