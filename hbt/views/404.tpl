@@ -40,8 +40,10 @@
 
 	    <div class="container" style="padding-top: 70px;">
 	    	<div class="text-center">
-				<h1><span class="glyphicon glyphicon-thumbs-down"></span> error: 404 <span class="glyphicon glyphicon-thumbs-down"></span></h1>
-				<p> go home, you're drunk. </p>
+				<h1>error: 404</h1>
+				<h3>page not found</h3>
+				<br>
+				<p><span class="glyphicon glyphicon-glass"></span> go home, you're drunk. <span class="glyphicon glyphicon-glass"></span></p>
 			</div>
 		</div>
 
