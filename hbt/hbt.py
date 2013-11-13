@@ -1,17 +1,14 @@
 import json
 import Habit
 import Day
-import cgi
-import re
 
-from bottle import Bottle, route, get, post, put, debug, run, request, redirect, template, static_file 
+from bottle import route, get, post, put, debug, run, request, redirect, template, static_file, error 
 # get_url
 from pymongo import MongoClient
 
 @route('/')
 def get_habits():
     l = habits.get_habits(10)
-    # return template('habits_template', dict(myhabits=l), get_url=get_url)
     return template('habits', dict(myhabits=l))
 
 
@@ -34,6 +31,7 @@ def post_new_habit():
 
     redirect('/')
 
+
 @route('/categories')
 def get_categories():
     return template('categories');
@@ -53,6 +51,16 @@ def edit_habit():
     habits.update(name, times, occurence, reminders, categories)
 
     redirect('/')
+
+####
+# 
+# ERRORS
+#
+####
+
+@error(404)
+def error404(error):
+    return template('404')
 
 
 client = MongoClient('localhost', 27017)
