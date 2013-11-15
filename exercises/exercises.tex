@@ -8,6 +8,8 @@
 \usepackage{amssymb}
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
+\usepackage{fixltx2e}
+\usepackage{mathtools}
 
 \title{Selected Exercises from Fundamentals of Database Systems}
 \author{Andrew Kowalczyk}
@@ -156,6 +158,155 @@ Redundancy is the term given when the same data is stored multiple times in seve
   LNAME & FNAME \\ \hline
   Wallace & Jennifer \\
   Wong & Franklin \\
+\end{tabular}
+\end{center}
+
+\subsection*{6.16 Specify the following queries on the COMPANY relational database schema shown in Figure 5.5, using the relational operators discussed in this chapter. Also show the result of each query as it would apply to the database state in Figure 3.6.}
+In the relational algebra, as in other languages, it is possible to specify the same query in multiple ways. We give one possible solution for each query. We use the symbol $\sigma$ for SELECT, $\pi$ for PROJECT, $\rhd\lhd$ for EQUIJOIN, * for NATURAL JOIN, and $\mathfrak{F}$ for FUNCTION.
+
+\subsubsection*{(a) Retrieve the names of employees in department 5 who work more than 10 hours per week on the "ProductX" project.}
+\subsubsection*{Relational Operators}
+EMP\_W\_X $\Leftarrow$ ( $\sigma$ \textsubscript{PNAME="ProductX"} (PROJECT)) $\rhd\lhd$ \textsubscript{(PNUMBER),(PNO)} (WORKS\_ON) \\
+EMP\_WORK\_10 $\Leftarrow$ (EMPLOYEE) $\rhd\lhd$ \textsubscript{(SSN),(ESSN)} ( $\sigma$ \textsubscript{HOURS>10} (EMP\_W\_X)) \\
+RESULT $\Leftarrow$ $\pi$ \textsubscript{LNAME,FNAME} ( $\sigma$ \textsubscript{DNO=5} (EMP\_WORK\_10))
+
+\subsubsection*{Result}
+\begin{center}
+\begin{tabular}{ c | c }
+  LNAME & FNAME \\ \hline
+  Smith & John \\
+  English & Joyce \\
+\end{tabular}
+\end{center}
+
+\subsubsection*{(b) List the names of employees who have a dependent with the same first name as themselves.}
+\subsubsection*{Relational Operators}
+E $\Leftarrow$ (EMPLOYEE) $\rhd\lhd$ \textsubscript{(SSN,FNAME),(ESSN,DEPENDENT\_NAME)} (DEPENDENT)\\
+R $\Leftarrow$ $\pi$ \textsubscript{LNAME,FNAME} (E)
+
+\subsubsection*{Result}
+\begin{center}
+\begin{tabular}{ c | c }
+  LNAME & FNAME \\ \hline
+\end{tabular}
+\end{center}
+
+\subsubsection*{(c) Find the names of employees that are directly supervised by "Franklin Wong".}
+\subsubsection*{Relational Operators}
+WONG\_SSN $\Leftarrow$ $\pi$ \textsubscript{SSN} ( $\sigma$ \textsubscript{FNAME="Franklin" AND LNAME="Wong"} (EMPLOYEE))\\
+WONG\_EMPS $\Leftarrow$ (EMPLOYEE) $\rhd\lhd$ \textsubscript{(SUPERSSN),(SSN)} (WONG\_SSN)\\
+RESULT $\Leftarrow$ $\pi$ \textsubscript{LNAME,FNAME} (WONG\_EMPS)
+
+\subsubsection*{Result}
+\begin{center}
+\begin{tabular}{ c | c }
+  LNAME & FNAME \\ \hline
+  Smith & John \\
+  Narayan & Ramesh \\
+  English & Joyce \\
+\end{tabular}
+\end{center}
+
+\subsubsection*{(d) For each project, list the project name and the total hours per week (by all employees) spent on that project.}
+\subsubsection*{Relational Operators}
+PROJ\_HOURS(PNO,TOT\_HRS) $\Leftarrow$ \textsubscript{PNO} $\mathfrak{F}$ \textsubscript{SUM HOURS} (WORKS\_ON) \\
+RESULT $\Leftarrow$ $\pi$ \textsubscript{PNAME,TOT\_HRS} ( (PROJ\_HOURS) $\rhd\lhd$ \textsubscript{(PNO),(PNUMBER)} (PROJECT) )
+
+\subsubsection*{Result}  
+\begin{center}
+\begin{tabular}{ c | c }
+  PNAME & TOT\_HRS  \\ \hline
+  ProductX & 52.5 \\
+  ProductY & 37.5 \\
+  ProductZ & 50.0 \\
+  Computerization & 55.0 \\
+  Reorganization & 25.0 \\
+  Newbenefits & 55.0 \\
+\end{tabular}
+\end{center}
+
+\subsubsection*{(e) Retrieve the names of employees who work on every project.}
+\subsubsection*{Relational Operators}
+PROJ\_EMPS(PNO,SSN) $\Leftarrow$ $\pi$ \textsubscript{PNO,ESSN} (WORKS\_ON) \\
+ALL\_PROJS(PNO) $\Leftarrow$ $\pi$ \textsubscript{PNUMBER} (PROJECT) \\
+EMPS\_ALL\_PROJS $\Leftarrow$ PROJ\_EMPS $\div$ ALLPROJS \\
+RESULT $\Leftarrow$ $\pi$ \textsubscript{LNAME,FNAME} (EMPLOYEE * EMP\_ALL\_PROJS)
+
+\subsubsection*{Result}
+\begin{center}
+\begin{tabular}{ c | c }
+  LNAME & FNAME \\ \hline
+\end{tabular}
+\end{center}
+
+\subsubsection*{(f) Retrieve the names of employees who do not work on any project.}
+\subsubsection*{Relational Operators}
+ALL\_EMPS $\Leftarrow$ $\pi$ \textsubscript{SSN} (EMPLOYEE) \\
+WORKING\_EMPS(SSN) $\Leftarrow$ $\pi$ \textsubscript{ESSN} (WORKS\_ON)\\
+NON\_WORKING\_EMPS $\Leftarrow$ ALL\_EMPS - WORKING\_EMPS\\
+RESULT $\Leftarrow$ $\pi$ \textsubscript{LNAME,FNAME} (EMPLOYEE * NON\_WORKING\_EMPS)
+
+\subsubsection*{Result}
+\begin{center}
+\begin{tabular}{ c | c }
+  LNAME & FNAME \\ \hline
+\end{tabular}
+\end{center}
+\subsubsection*{(g) For each department, retrieve the department name and the average salary of all employees working in that department.}
+\subsubsection*{Relational Operators}
+DEPT\_AVG\_SALS(DNUMBER,AVG\_SAL) $\Leftarrow$ \textsubscript{DNO} $\mathfrak{F}$ \textsubscript{AVG SALARY} (EMPLOYEE)\\
+RESULT $\Leftarrow$ $\pi$ \textsubscript{DNUMBER,AVG\_SAL} ( DEPT\_AVG\_SALS * DEPARTMENT )
+
+\subsubsection*{Result}
+\begin{center}
+\begin{tabular}{ c | c }
+  DNUMBER & AVG\_SAL  \\ \hline
+  Research & 33250 \\
+  Administration & 31000 \\
+  Headquarters & 55000 \\
+\end{tabular}
+\end{center}
+
+\subsubsection*{(h) Retrieve the average salary of all female employees.}
+\subsubsection*{Relational Operators}
+RESULT(AVG\_F\_SAL) $\Leftarrow$ $\mathfrak{F}$ \textsubscript{AVG SALARY} ( $\sigma$ \textsubscript{SEX="F"} (EMPLOYEE) )
+
+\subsubsection*{Result}
+\begin{center}
+\begin{tabular}{ c }
+  AVG\_F\_SAL \\ \hline
+  31,000 \\
+\end{tabular}
+\end{center}
+
+\subsubsection*{(i) Find the names and addresses of employees who work on at least one project located in Houston but whose department has no location in Houston.}
+\subsubsection*{Relational Operators}
+E\_P\_HOU(SSN) $\Leftarrow$ $\pi$ \textsubscript{ESSN} (WORKS\_ON $\rhd\lhd$ \textsubscript{(PNO),(PNUMBER)} ( $\sigma$ \textsubscript{PLOCATION="Houston"} (PROJECT)))\\
+D\_NO\_HOU $\Leftarrow$ $\pi$ \textsubscript{DNUMBER} (DEPARTMENT) - $\pi$ \textsubscript{DNUMBER} ( $\sigma$ \textsubscript{DLOCATION="Houston"} (DEPARTMENT))\\
+E\_D\_NO\_HOU $\Leftarrow$ $\pi$ \textsubscript{SSN} (EMPLOYEE  $\rhd\lhd$ \textsubscript{(PNO),(DNUMBER)} (D\_NO\_HOU))\\
+RESULT\_EMPS $\Leftarrow$ E\_P\_HOU - E\_D\_NO\_HOU \\
+RESULT $\Leftarrow$ $\pi$ \textsubscript{LNAME,FNAME,ADDRESS} (EMPLOYEE * RESULT\_EMPS)
+
+\subsubsection*{Result}
+\begin{center}
+\begin{tabular}{ c | c | c}
+  LNAME & FNAME  & ADDRESS \\ \hline
+  Wallace & Jennifer & 291 Berry, Bellaire, TX \\
+\end{tabular}
+\end{center}
+
+\subsubsection*{(j) List the last names of department managers who have no dependents.}
+\subsubsection*{Relational Operators}
+DEPT\_MANAGERS(SSN)<-- $\pi$ \textsubscript{MGRSSN} (DEPARTMENT) \\
+EMPS\_WITH\_DEPENDENTS(SSN) $\Leftarrow$ $\pi$ \textsubscript{ESSN} (DEPENDENT) \\
+RESULT\_EMPS $\Leftarrow$ DEPT\_MANAGERS - EMPS\_WITH\_DEPENDENTS \\
+RESULT $\Leftarrow$ $\pi$ \textsubscript{LNAME,FNAME} (EMPLOYEE * RESULT\_EMPS)
+
+\subsubsection*{Relational Operators}
+\begin{center}
+\begin{tabular}{ c | c }
+  LNAME & FNAME \\ \hline
+  Borg & James \\
 \end{tabular}
 \end{center}
 
