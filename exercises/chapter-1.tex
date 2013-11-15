@@ -1,0 +1,51 @@
+\section*{Chapter 1}
+\subsection*{1.8 Identify some informal queries and update operations that you would expect to apply to the database shown in Figure 1.2.}
+
+\subsubsection*{Queries}
+
+\begin{enumerate}
+\item Find the names of all students majoring in Mathematics.
+\item What are the prerequisites of the Database course?
+\item Find the the transcript of the student named Brown. We would find <Course\_name, Section\_identifier, Semester, Year, Grade> for each course section that Brown has taken.
+\end{enumerate}
+
+\subsubsection*{Updates}
+
+\begin{enumerate}
+\item Insert a new student in the database whose Name=Kowalczyk, Student\_number=25, Class=4, and Major=CS.
+\item Change the grade that Brown received in Discrete Mathematics to a D.
+\end{enumerate}
+
+\subsection*{1.9 What is the difference between controlled and uncontrolled redundancy? Illustrate with examples.}
+Redundancy is the term given when the same data is stored multiple times in several places in a database. If you look at Figure 1.5(a)  in the text, you can see that the name of the student with Student\_number=8 is Brown is stored multiple times. Redundancy is controlled when the database management system (DBMS) ensures that multiple copies of the same data are consistent. To illustrate this, let's say we are adding a new record with Student\_number=8 to be stored in the database of Figure 1.5(a). If we were to have uncontrolled redundancy, the DBMS would have no control over this. If we were to have controlled redundancy, the DBMS would ensure that Student\_name=Brown in that record.
+
+\subsection*{1.10 Specify all the relationships among the records of the database shown in Figure 1.2.}
+\begin{enumerate}
+\item Every GRADE\_REPORT record is related to one STUDENT record and one SECTION record.
+\item Every SECTION record is related to a COURSE record.
+\item Every PREREQUISITE record relates two COURSE records. One being a course and the other being a prerequisite to that course.
+\end{enumerate}
+
+\subsection*{1.11 Give some additional views that may be needed by other user groups for the database shown in Figure 1.2.}
+\begin{enumerate}
+\item A view of each class section that groups all the students who took that section and their respective grade.
+\item A view that gives the number of courses taken and the grade point average for each student.
+\end{enumerate}
+
+\subsection*{1.12 Cite some examples of integrity constraints that you think can apply to the database shown in Figure 1.2.}
+\subsubsection*{Key constraints}
+\begin{enumerate}
+\item Student\_number must be unique for each STUDENT record.
+\item Course\_number must be unique for each COURSE record.
+\end{enumerate}
+
+\subsubsection*{Referential integrity constraints}
+\begin{enumerate}
+\item The Course\_number in a SECTION record must also exist in some COURSE record.
+\item The Student\_number in a GRADE\_REPORT record must also exist in some STUDENT record.
+\end{enumerate}
+
+\subsubsection*{Domain constraints}
+\begin{enumerate}
+\item Grades in a a given GRADE\_REPORT record must be one of these values: {A, B, C, D, F, I, W} .
+\end{enumerate}
