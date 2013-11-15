@@ -16,306 +16,37 @@
 \date{}
 
 \begin{document}
+
 \maketitle
+I selected around 40 questions from the 6$^{th}$ edition of \textit{Fundamentals of Database Systems} by Ramez Elmasri and Shamkant Navathe. This was part of my requirement for my Introduction to Database Systems course taken in the Fall of 2013.
 
-\section*{Chapter 1}
+\input{chapter-1.tex}
+\pagebreak
 
-\subsection*{1.8 Identify some informal queries and update operations that you would expect to apply to the database shown in Figure 1.2.}
+\input{chapter-2.tex}
+\pagebreak
 
-\subsubsection*{Queries}
+\input{chapter-3.tex}
+\pagebreak
 
-\begin{enumerate}
-\item Find the names of all students majoring in Mathematics.
-\item What are the prerequisites of the Database course?
-\item Find the the transcript of the student named Brown. We would find <Course\_name, Section\_identifier, Semester, Year, Grade> for each course section that Brown has taken.
-\end{enumerate}
+%\input{chapter-4.tex}
+%\pagebreak
 
-\subsubsection*{Updates}
+%\input{chapter-5.tex}
+%\pagebreak
 
-\begin{enumerate}
-\item Insert a new student in the database whose Name=Kowalczyk, Student\_number=25, Class=4, and Major=CS.
-\item Change the grade that Brown received in Discrete Mathematics to a D.
-\end{enumerate}
+\input{chapter-6.tex}
+\pagebreak
 
-\subsection*{1.9 What is the difference between controlled and uncontrolled redundancy? Illustrate with examples.}
-Redundancy is the term given when the same data is stored multiple times in several places in a database. If you look at Figure 1.5(a)  in the text, you can see that the name of the student with Student\_number=8 is Brown is stored multiple times. Redundancy is controlled when the database management system (DBMS) ensures that multiple copies of the same data are consistent. To illustrate this, let's say we are adding a new record with Student\_number=8 to be stored in the database of Figure 1.5(a). If we were to have uncontrolled redundancy, the DBMS would have no control over this. If we were to have controlled redundancy, the DBMS would ensure that Student\_name=Brown in that record.
+%\input{chapter-7.tex}
+%\pagebreak
 
-\subsection*{1.10 Specify all the relationships among the records of the database shown in Figure 1.2.}
-\begin{enumerate}
-\item Every GRADE\_REPORT record is related to one STUDENT record and one SECTION record.
-\item Every SECTION record is related to a COURSE record.
-\item Every PREREQUISITE record relates two COURSE records. One being a course and the other being a prerequisite to that course.
-\end{enumerate}
+%\input{chapter-8.tex}
+%\pagebreak
 
-\subsection*{1.11 Give some additional views that may be needed by other user groups for the database shown in Figure 1.2.}
-\begin{enumerate}
-\item A view of each class section that groups all the students who took that section and their respective grade.
-\item A view that gives the number of courses taken and the grade point average for each student.
-\end{enumerate}
+%\input{chapter-9.tex}
+%\pagebreak
 
-\subsection*{1.12 Cite some examples of integrity constraints that you think can apply to the database shown in Figure 1.2.}
-\subsubsection*{Key constraints}
-\begin{enumerate}
-\item Student\_number must be unique for each STUDENT record.
-\item Course\_number must be unique for each COURSE record.
-\end{enumerate}
-
-\subsubsection*{Referential integrity constraints}
-\begin{enumerate}
-\item The Course\_number in a SECTION record must also exist in some COURSE record.
-\item The Student\_number in a GRADE\_REPORT record must also exist in some STUDENT record.
-\end{enumerate}
-
-\subsubsection*{Domain constraints}
-\begin{enumerate}
-\item Grades in a a given GRADE\_REPORT record must be one of these values: {A, B, C, D, F, I, W} .
-\end{enumerate}
-
-\section*{Chapter 2}
-\subsection*{2.12 Think of different users for the database shown in Figure 1.2. What types of applications would each user need? To which user category would each belong, and what type of interface would each need?}
-
-\begin{enumerate}
-  \item Students add and drop classes. Actions that they can do are as listed:
-    \begin{enumerate}
-       \item Register themselves in a section of a course
-       \item Drop themselves from a section of a course 
-    \end{enumerate}
-  \item Registrar. They enter data of registration of students in sections of courses, and later enter the grades of the students. Actions that they can do are as listed:
-    \begin{enumerate}
-        \item Check whether a student who is registered in a course has the appropriate prerequisite courses
-       \item Add a student to a section of a course
-       \item Enter the student grades for a section
-    \end{enumerate}
-  \item Admissions. Their main application would be to enter newly accepted students into the database. Actions that they can do are as listed:
-    \begin{enumerate}
-    	\item Add students to the school's records
-    \end{enumerate}
-\end{enumerate}
-
-\section*{Chapter 3}
-
-\section*{Chapter 4}
-
-\section*{Chapter 5}
-
-\section*{Chapter 6}
-
-\subsection*{6.15. Show the result of each of the sample queries in Section 6.5 as it would apply to the database state in Figure 3.6.} 
-
-\subsubsection*{Query 1: Find the name and address of all employees who work for the 'Research' department.}
-\begin{center}
-\begin{tabular}{ c | c | c }
-  FNAME & LNAME & ADDRESS \\ \hline
-  John & Smith & 731 Fondren, Houston, TX \\
-  Franklin & Wong & 638 Voss, Houston, TX \\
-  Ramesh &  Narayan & 975 Fire Oak, Humble, TX \\
-  Joyce & English & 5631 Rice, Houston, TX \\
-\end{tabular}
-\end{center}
-
-\subsubsection*{Query 2: For every project located in 'Stafford', list the project number, the controlling department number, and the department manager's last name, address, and birth date.}
-\begin{center} 
-\begin{tabular}{ c | c | c | c | c}
-  PNUMBER & DNUM & LNAME & ADDRESS & BDATE \\ \hline
-  10 & 4 & Wallace & 291 Berry, Bellaire, TX &20-JUN-31 \\  30 & 4 & Wallace & 291 Berry, Bellaire, TX & 20-JUN-31 \\ 
-\end{tabular}
-\end{center}
-
-\subsubsection*{Query 3: Find the names of all employees who work on all the projects controlled by department number 5.}
-\begin{center}
-\begin{tabular}{ c | c }
-  LNAME & FNAME \\ \hline
-\end{tabular}
-\end{center}
-
-\subsubsection*{Query 4: Make a list of project numbers for projects that involve an employee whose last name is 'Smith' as a worker or as a manager of the department that controls the project.}
-\begin{center}
-\begin{tabular}{ c }
-  PNO \\ \hline
-  1 \\
-  2 \\
-\end{tabular}
-\end{center}
-
-\subsubsection*{Query 5: List the names of all employees with two or more dependents.}
-\begin{center}
-\begin{tabular}{ c | c }
-  LNAME & FNAME \\ \hline
-  Smith & John \\  Wong & Franklin \\
-\end{tabular}
-\end{center}
-
-\subsubsection*{Query 6 List the names of employees who have no dependents.}
-\begin{center}
-\begin{tabular}{ c | c }
-  LNAME & FNAME \\ \hline
-  Zelaya & Alicia \\  Narayan & Ramesh \\  English & Joyce \\  Jabbar & Ahmad \\  Borg & James \\
-\end{tabular}
-\end{center}
-
-\subsubsection*{Query 7: List the names of managers who have at least one dependent.}\begin{center}
-\begin{tabular}{ c | c }
-  LNAME & FNAME \\ \hline
-  Wallace & Jennifer \\
-  Wong & Franklin \\
-\end{tabular}
-\end{center}
-
-\subsection*{6.16 Specify the following queries on the COMPANY relational database schema shown in Figure 5.5, using the relational operators discussed in this chapter. Also show the result of each query as it would apply to the database state in Figure 3.6.}
-I use the symbol $\sigma$ for SELECT, $\pi$ for PROJECT, $\rhd\lhd$ for EQUIJOIN, * for NATURAL JOIN, and $\mathfrak{F}$ for FUNCTION.
-
-\subsubsection*{(a) Retrieve the names of employees in department 5 who work more than 10 hours per week on the "ProductX" project.}
-\subsubsection*{Relational Operators}
-EMP\_W\_X $\Leftarrow$ ( $\sigma$ \textsubscript{PNAME="ProductX"} (PROJECT)) $\rhd\lhd$ \textsubscript{(PNUMBER),(PNO)} (WORKS\_ON) \\
-EMP\_WORK\_10 $\Leftarrow$ (EMPLOYEE) $\rhd\lhd$ \textsubscript{(SSN),(ESSN)} ( $\sigma$ \textsubscript{HOURS>10} (EMP\_W\_X)) \\
-RESULT $\Leftarrow$ $\pi$ \textsubscript{LNAME,FNAME} ( $\sigma$ \textsubscript{DNO=5} (EMP\_WORK\_10))
-
-\subsubsection*{Result}
-\begin{center}
-\begin{tabular}{ c | c }
-  LNAME & FNAME \\ \hline
-  Smith & John \\
-  English & Joyce \\
-\end{tabular}
-\end{center}
-
-\subsubsection*{(b) List the names of employees who have a dependent with the same first name as themselves.}
-\subsubsection*{Relational Operators}
-E $\Leftarrow$ (EMPLOYEE) $\rhd\lhd$ \textsubscript{(SSN,FNAME),(ESSN,DEPENDENT\_NAME)} (DEPENDENT)\\
-R $\Leftarrow$ $\pi$ \textsubscript{LNAME,FNAME} (E)
-
-\subsubsection*{Result}
-\begin{center}
-\begin{tabular}{ c | c }
-  LNAME & FNAME \\ \hline
-\end{tabular}
-\end{center}
-
-\subsubsection*{(c) Find the names of employees that are directly supervised by "Franklin Wong".}
-\subsubsection*{Relational Operators}
-WONG\_SSN $\Leftarrow$ $\pi$ \textsubscript{SSN} ( $\sigma$ \textsubscript{FNAME="Franklin" AND LNAME="Wong"} (EMPLOYEE))\\
-WONG\_EMPS $\Leftarrow$ (EMPLOYEE) $\rhd\lhd$ \textsubscript{(SUPERSSN),(SSN)} (WONG\_SSN)\\
-RESULT $\Leftarrow$ $\pi$ \textsubscript{LNAME,FNAME} (WONG\_EMPS)
-
-\subsubsection*{Result}
-\begin{center}
-\begin{tabular}{ c | c }
-  LNAME & FNAME \\ \hline
-  Smith & John \\
-  Narayan & Ramesh \\
-  English & Joyce \\
-\end{tabular}
-\end{center}
-
-\subsubsection*{(d) For each project, list the project name and the total hours per week (by all employees) spent on that project.}
-\subsubsection*{Relational Operators}
-PROJ\_HOURS(PNO,TOT\_HRS) $\Leftarrow$ \textsubscript{PNO} $\mathfrak{F}$ \textsubscript{SUM HOURS} (WORKS\_ON) \\
-RESULT $\Leftarrow$ $\pi$ \textsubscript{PNAME,TOT\_HRS} ( (PROJ\_HOURS) $\rhd\lhd$ \textsubscript{(PNO),(PNUMBER)} (PROJECT) )
-
-\subsubsection*{Result}  
-\begin{center}
-\begin{tabular}{ c | c }
-  PNAME & TOT\_HRS  \\ \hline
-  ProductX & 52.5 \\
-  ProductY & 37.5 \\
-  ProductZ & 50.0 \\
-  Computerization & 55.0 \\
-  Reorganization & 25.0 \\
-  Newbenefits & 55.0 \\
-\end{tabular}
-\end{center}
-
-\subsubsection*{(e) Retrieve the names of employees who work on every project.}
-\subsubsection*{Relational Operators}
-PROJ\_EMPS(PNO,SSN) $\Leftarrow$ $\pi$ \textsubscript{PNO,ESSN} (WORKS\_ON) \\
-ALL\_PROJS(PNO) $\Leftarrow$ $\pi$ \textsubscript{PNUMBER} (PROJECT) \\
-EMPS\_ALL\_PROJS $\Leftarrow$ PROJ\_EMPS $\div$ ALLPROJS \\
-RESULT $\Leftarrow$ $\pi$ \textsubscript{LNAME,FNAME} (EMPLOYEE * EMP\_ALL\_PROJS)
-
-\subsubsection*{Result}
-\begin{center}
-\begin{tabular}{ c | c }
-  LNAME & FNAME \\ \hline
-\end{tabular}
-\end{center}
-
-\subsubsection*{(f) Retrieve the names of employees who do not work on any project.}
-\subsubsection*{Relational Operators}
-ALL\_EMPS $\Leftarrow$ $\pi$ \textsubscript{SSN} (EMPLOYEE) \\
-WORKING\_EMPS(SSN) $\Leftarrow$ $\pi$ \textsubscript{ESSN} (WORKS\_ON)\\
-NON\_WORKING\_EMPS $\Leftarrow$ ALL\_EMPS - WORKING\_EMPS\\
-RESULT $\Leftarrow$ $\pi$ \textsubscript{LNAME,FNAME} (EMPLOYEE * NON\_WORKING\_EMPS)
-
-\subsubsection*{Result}
-\begin{center}
-\begin{tabular}{ c | c }
-  LNAME & FNAME \\ \hline
-\end{tabular}
-\end{center}
-\subsubsection*{(g) For each department, retrieve the department name and the average salary of all employees working in that department.}
-\subsubsection*{Relational Operators}
-DEPT\_AVG\_SALS(DNUMBER,AVG\_SAL) $\Leftarrow$ \textsubscript{DNO} $\mathfrak{F}$ \textsubscript{AVG SALARY} (EMPLOYEE)\\
-RESULT $\Leftarrow$ $\pi$ \textsubscript{DNUMBER,AVG\_SAL} ( DEPT\_AVG\_SALS * DEPARTMENT )
-
-\subsubsection*{Result}
-\begin{center}
-\begin{tabular}{ c | c }
-  DNUMBER & AVG\_SAL  \\ \hline
-  Research & 33250 \\
-  Administration & 31000 \\
-  Headquarters & 55000 \\
-\end{tabular}
-\end{center}
-
-\subsubsection*{(h) Retrieve the average salary of all female employees.}
-\subsubsection*{Relational Operators}
-RESULT(AVG\_F\_SAL) $\Leftarrow$ $\mathfrak{F}$ \textsubscript{AVG SALARY} ( $\sigma$ \textsubscript{SEX="F"} (EMPLOYEE) )
-
-\subsubsection*{Result}
-\begin{center}
-\begin{tabular}{ c }
-  AVG\_F\_SAL \\ \hline
-  31,000 \\
-\end{tabular}
-\end{center}
-
-\subsubsection*{(i) Find the names and addresses of employees who work on at least one project located in Houston but whose department has no location in Houston.}
-\subsubsection*{Relational Operators}
-E\_P\_HOU(SSN) $\Leftarrow$ $\pi$ \textsubscript{ESSN} (WORKS\_ON $\rhd\lhd$ \textsubscript{(PNO),(PNUMBER)} ( $\sigma$ \textsubscript{PLOCATION="Houston"} (PROJECT)))\\
-D\_NO\_HOU $\Leftarrow$ $\pi$ \textsubscript{DNUMBER} (DEPARTMENT) - $\pi$ \textsubscript{DNUMBER} ( $\sigma$ \textsubscript{DLOCATION="Houston"} (DEPARTMENT))\\
-E\_D\_NO\_HOU $\Leftarrow$ $\pi$ \textsubscript{SSN} (EMPLOYEE  $\rhd\lhd$ \textsubscript{(PNO),(DNUMBER)} (D\_NO\_HOU))\\
-RESULT\_EMPS $\Leftarrow$ E\_P\_HOU - E\_D\_NO\_HOU \\
-RESULT $\Leftarrow$ $\pi$ \textsubscript{LNAME,FNAME,ADDRESS} (EMPLOYEE * RESULT\_EMPS)
-
-\subsubsection*{Result}
-\begin{center}
-\begin{tabular}{ c | c | c}
-  LNAME & FNAME  & ADDRESS \\ \hline
-  Wallace & Jennifer & 291 Berry, Bellaire, TX \\
-\end{tabular}
-\end{center}
-
-\subsubsection*{(j) List the last names of department managers who have no dependents.}
-\subsubsection*{Relational Operators}
-DEPT\_MANAGERS(SSN)<-- $\pi$ \textsubscript{MGRSSN} (DEPARTMENT) \\
-EMPS\_WITH\_DEPENDENTS(SSN) $\Leftarrow$ $\pi$ \textsubscript{ESSN} (DEPENDENT) \\
-RESULT\_EMPS $\Leftarrow$ DEPT\_MANAGERS - EMPS\_WITH\_DEPENDENTS \\
-RESULT $\Leftarrow$ $\pi$ \textsubscript{LNAME,FNAME} (EMPLOYEE * RESULT\_EMPS)
-
-\subsubsection*{Relational Operators}
-\begin{center}
-\begin{tabular}{ c | c }
-  LNAME & FNAME \\ \hline
-  Borg & James \\
-\end{tabular}
-\end{center}
-
-\section*{Chapter 7}
-
-\section*{Chapter 8}
-
-\section*{Chapter 9}
-
-\section*{Chapter 10}
+%\input{chapter-10.tex}
 
 \end{document}  
