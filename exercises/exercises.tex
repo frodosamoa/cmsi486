@@ -41,7 +41,6 @@
 Redundancy is the term given when the same data is stored multiple times in several places in a database. If you look at Figure 1.5(a)  in the text, you can see that the name of the student with Student\_number=8 is Brown is stored multiple times. Redundancy is controlled when the database management system (DBMS) ensures that multiple copies of the same data are consistent. To illustrate this, let's say we are adding a new record with Student\_number=8 to be stored in the database of Figure 1.5(a). If we were to have uncontrolled redundancy, the DBMS would have no control over this. If we were to have controlled redundancy, the DBMS would ensure that Student\_name=Brown in that record.
 
 \subsection*{1.10 Specify all the relationships among the records of the database shown in Figure 1.2.}
-
 \begin{enumerate}
 \item Every GRADE\_REPORT record is related to one STUDENT record and one SECTION record.
 \item Every SECTION record is related to a COURSE record.
@@ -49,14 +48,12 @@ Redundancy is the term given when the same data is stored multiple times in seve
 \end{enumerate}
 
 \subsection*{1.11 Give some additional views that may be needed by other user groups for the database shown in Figure 1.2.}
-
 \begin{enumerate}
 \item A view of each class section that groups all the students who took that section and their respective grade.
 \item A view that gives the number of courses taken and the grade point average for each student.
 \end{enumerate}
 
 \subsection*{1.12 Cite some examples of integrity constraints that you think can apply to the database shown in Figure 1.2.}
-
 \subsubsection*{Key constraints}
 \begin{enumerate}
 \item Student\_number must be unique for each STUDENT record.
@@ -78,7 +75,6 @@ Redundancy is the term given when the same data is stored multiple times in seve
 \subsection*{2.12 Think of different users for the database shown in Figure 1.2. What types of applications would each user need? To which user category would each belong, and what type of interface would each need?}
 
 \begin{enumerate}
-
   \item Students add and drop classes. Actions that they can do are as listed:
     \begin{enumerate}
        \item Register themselves in a section of a course
@@ -97,9 +93,13 @@ Redundancy is the term given when the same data is stored multiple times in seve
 \end{enumerate}
 
 \section*{Chapter 3}
+
 \section*{Chapter 4}
+
 \section*{Chapter 5}
+
 \section*{Chapter 6}
+
 \subsection*{6.15. Show the result of each of the sample queries in Section 6.5 as it would apply to the database state in Figure 3.6.} 
 
 \subsubsection*{Query 1: Find the name and address of all employees who work for the 'Research' department.}
@@ -162,7 +162,7 @@ Redundancy is the term given when the same data is stored multiple times in seve
 \end{center}
 
 \subsection*{6.16 Specify the following queries on the COMPANY relational database schema shown in Figure 5.5, using the relational operators discussed in this chapter. Also show the result of each query as it would apply to the database state in Figure 3.6.}
-In the relational algebra, as in other languages, it is possible to specify the same query in multiple ways. We give one possible solution for each query. We use the symbol $\sigma$ for SELECT, $\pi$ for PROJECT, $\rhd\lhd$ for EQUIJOIN, * for NATURAL JOIN, and $\mathfrak{F}$ for FUNCTION.
+I use the symbol $\sigma$ for SELECT, $\pi$ for PROJECT, $\rhd\lhd$ for EQUIJOIN, * for NATURAL JOIN, and $\mathfrak{F}$ for FUNCTION.
 
 \subsubsection*{(a) Retrieve the names of employees in department 5 who work more than 10 hours per week on the "ProductX" project.}
 \subsubsection*{Relational Operators}
@@ -311,8 +311,11 @@ RESULT $\Leftarrow$ $\pi$ \textsubscript{LNAME,FNAME} (EMPLOYEE * RESULT\_EMPS)
 \end{center}
 
 \section*{Chapter 7}
+
 \section*{Chapter 8}
+
 \section*{Chapter 9}
+
 \section*{Chapter 10}
 
 \end{document}  
