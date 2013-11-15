@@ -1,0 +1,74 @@
+\section*{Chapter 3}
+\subsection*{3.11 Suppose that each of the following Update operations is applied directly to the database state shown in Figure 3.6. Discuss all integrity constraints violated by each operation, if any, and the different ways of enforcing these constraints.}
+
+In each of examples, the different ways of enforcing the constraints is listed in preferential order (\textit{i.e.} 1 is most preferred, 2 is less preferred, etc.).
+
+\subsubsection*{(a) Insert <"Robert", "F", "Scott", "943775543", "1972-06-21", "2365 Newcastle Rd, Bellaire, TX", M, 58000, "888665555", 1> into EMPLOYEE.}
+No constraints violated.
+
+\subsubsection*{(b) Insert <"ProductA", 4, "Bellaire", 2> into PROJECT.}
+ Since there is no tuple in the DEPARTMENT relation with DNUM=2, this insertion would violate referential integrity for that very reason. We can enforce the constraint with these options:
+\begin{enumerate}
+\item Rejecting the insertion
+\item Changing the value of DNUM in the new PROJECT tuple to an existing DNUMBER value in the DEPARTMENT relation
+\item Inserting a new DEPARTMENT tuple with DNUMBER=2
+\end{enumerate}
+
+\subsubsection*{(c) Insert <"Production", 4, "943775543", "2007-10-01"> into DEPARTMENT.}
+Oh no! Since there already exists a DEPARTMENT tuple with DNUMBER=4, this would violate the key constraint. Enforcement of this constraint would happen by:
+\begin{enumerate}
+\item Rejecting the insertion
+\item Changing the value of DNUMBER in the new DEPARTMENT tuple to a value that does not violate the key constraint
+\end{enumerate}
+Also, since there is no tuple in the EMPLOYEE relation with SSN="943775543", this insertion also happens to violate referential integrity. Let us enforce the constraint by either: 
+\begin{enumerate}
+\item Rejecting the insertion
+\item Changing the value of MGRSSN to an existing SSN value in EMPLOYEE
+\item Inserting a new EMPLOYEE tuple with SSN="943775543"
+\end{enumerate}
+
+\subsubsection*{(d) Insert <"677678989", NULL, "40.0"> into WORKS\_ON.}
+Since PNO (part of the primary key of WORKS\_ON) is null, this violates entity integrity. We have these options to enforce this constraint:
+\begin{enumerate}
+\item Rejecting the insertion
+\item Changing the value of PNO in the new WORKS\_ON tuple to a value of PNUMBER that exists in the PROJECT relation
+\end{enumerate}
+Since there is no tuple in the EMPLOYEE relation with SSN="677678989", this insertion would violate referential integrity. We may enforce the constraint by:
+\begin{enumerate}
+\item Rejecting the insertion
+\item Changing the value of ESSN to an existing SSN value in EMPLOYEE
+\item Inserting a new EMPLOYEE tuple with SSN="677678989"
+\end{enumerate}
+
+\subsubsection*{(e) Insert <"453453453","John","M","1990-12-12","spouse"> into DEPENDENT.}
+Nope! Not a single constraint was violated.
+
+\subsubsection*{(f) Delete the WORKS\_ON tuples with Essn = "333445555".}
+No constraints violated in the making of this delete.
+
+\subsubsection*{(g) Delete the EMPLOYEE tuple with Ssn = "987654321".}
+Unfortunately, the employee trying to be deleted is referenced in the WORKS\_ON, DEPENDENT, DEPARTMENT, and EMPLOYEE relations. We can enforce such an abolishment by either:
+\begin{enumerate}
+\item Rejecting the deletion
+\item Deleting all tuples in the WORKS\_ON, DEPENDENT, DEPARTMENT, and EMPLOYEE relations whose values for ESSN, ESSN, MGRSSN, and SUPERSSN, respectively, is equal to "987654321"
+\end{enumerate}
+
+\subsubsection*{(h) Delete the PROJECT tuple with Pname="ProductX".}
+This deletion would completely violate referential integrity because two tuples exist in the WORKS\_ON relation that reference the tuple being deleted from PROJECT. Silly us,  let's enforce the constraint by:
+\begin{enumerate} 
+\item Rejecting the deletion
+\item Deleting the tuples in the WORKS\_ON relation whose value for the primary key PNUMBER for the tuple being deleted from PROJECT with PNO=1
+\end{enumerate}
+
+\subsubsection*{(i) Modify the Mgr\_ssn and Mgr\_start\_date of the DEPARTMENT tuple with Dnumber = 5 to "123456789" and "2007-10-01", respectively.}
+No violation of constraints.
+
+\subsubsection*{(j) Modify the Super\_ssn attribute of the EMPLOYEE tuple with Ssn = "999887777" to "943775543".}
+Goodness gracious, great balls of fire! Since there is no tuple in the EMPLOYEE relation with SSN="943775543", this update would violate referential integrity. In order to enforce this constraint, we can choose from:
+\begin{enumerate}
+\item Rejecting the deletion
+\item Inserting a new EMPLOYEE tuple with SSN="943775543"
+\end{enumerate}
+
+\subsubsection*{(k) Modify the Hours attribute of the WORKS\_ON tuple with Essn = "999887777" and Pno = 10 to "5.0".}
+No constraints violated.
