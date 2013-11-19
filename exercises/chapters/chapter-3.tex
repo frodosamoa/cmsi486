@@ -1,5 +1,8 @@
 \section*{Chapter 3}
+\addcontentsline{toc}{section}{Chapter 3}
+
 \subsection*{3.11 Suppose that each of the following Update operations is applied directly to the database state shown in Figure 3.6. Discuss all integrity constraints violated by each operation, if any, and the different ways of enforcing these constraints.}
+\addcontentsline{toc}{subsection}{3.11}
 
 In each of examples, the different ways of enforcing the constraints is listed in preferential order (\textit{i.e.} 1 is most preferred, 2 is less preferred, etc.).
 
@@ -40,35 +43,35 @@ Since there is no tuple in the EMPLOYEE relation with SSN="677678989", this inse
 \item Inserting a new EMPLOYEE tuple with SSN="677678989"
 \end{enumerate}
 
-\subsubsection*{(e) Insert <"453453453","John","M","1990-12-12","spouse"> into DEPENDENT.}
+\subsubsection*{(e) Insert <'453453453','John','M','1990-12-12','spouse'> into DEPENDENT.}
 Nope! Not a single constraint was violated.
 
-\subsubsection*{(f) Delete the WORKS\_ON tuples with Essn = "333445555".}
+\subsubsection*{(f) Delete the WORKS\_ON tuples with Essn = '333445555'.}
 No constraints violated in the making of this delete.
 
-\subsubsection*{(g) Delete the EMPLOYEE tuple with Ssn = "987654321".}
+\subsubsection*{(g) Delete the EMPLOYEE tuple with Ssn = '987654321'.}
 Unfortunately, the employee trying to be deleted is referenced in the WORKS\_ON, DEPENDENT, DEPARTMENT, and EMPLOYEE relations. We can enforce such an abolishment by either:
 \begin{enumerate}
 \item Rejecting the deletion
-\item Deleting all tuples in the WORKS\_ON, DEPENDENT, DEPARTMENT, and EMPLOYEE relations whose values for ESSN, ESSN, MGRSSN, and SUPERSSN, respectively, is equal to "987654321"
+\item Deleting all tuples in the WORKS\_ON, DEPENDENT, DEPARTMENT, and EMPLOYEE relations whose values for ESSN, ESSN, MGRSSN, and SUPERSSN, respectively, is equal to '987654321'
 \end{enumerate}
 
-\subsubsection*{(h) Delete the PROJECT tuple with Pname="ProductX".}
+\subsubsection*{(h) Delete the PROJECT tuple with Pname='ProductX'.}
 This deletion would completely violate referential integrity because two tuples exist in the WORKS\_ON relation that reference the tuple being deleted from PROJECT. Silly us,  let's enforce the constraint by:
 \begin{enumerate} 
 \item Rejecting the deletion
 \item Deleting the tuples in the WORKS\_ON relation whose value for the primary key PNUMBER for the tuple being deleted from PROJECT with PNO=1
 \end{enumerate}
 
-\subsubsection*{(i) Modify the Mgr\_ssn and Mgr\_start\_date of the DEPARTMENT tuple with Dnumber = 5 to "123456789" and "2007-10-01", respectively.}
+\subsubsection*{(i) Modify the Mgr\_ssn and Mgr\_start\_date of the DEPARTMENT tuple with Dnumber = 5 to '123456789' and '2007-10-01', respectively.}
 No violation of constraints.
 
-\subsubsection*{(j) Modify the Super\_ssn attribute of the EMPLOYEE tuple with Ssn = "999887777" to "943775543".}
-Goodness gracious, great balls of fire! Since there is no tuple in the EMPLOYEE relation with SSN="943775543", this update would violate referential integrity. In order to enforce this constraint, we can choose from:
+\subsubsection*{(j) Modify the Super\_ssn attribute of the EMPLOYEE tuple with Ssn = '999887777' to '943775543'.}
+Goodness gracious, great balls of fire! Since there is no tuple in the EMPLOYEE relation with SSN='943775543', this update would violate referential integrity. In order to enforce this constraint, we can choose from:
 \begin{enumerate}
 \item Rejecting the deletion
-\item Inserting a new EMPLOYEE tuple with SSN="943775543"
+\item Inserting a new EMPLOYEE tuple with SSN='943775543'
 \end{enumerate}
 
-\subsubsection*{(k) Modify the Hours attribute of the WORKS\_ON tuple with Essn = "999887777" and Pno = 10 to "5.0".}
+\subsubsection*{(k) Modify the Hours attribute of the WORKS\_ON tuple with Essn = '999887777' and Pno = 10 to '5.0'.}
 No constraints violated.

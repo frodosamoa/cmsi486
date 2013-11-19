@@ -1,7 +1,8 @@
 \section*{Chapter 6}
+\addcontentsline{toc}{section}{Chapter 6}
 
-\subsection*{6.15. Show the result of each of the sample queries in Section 6.5 as it would apply to the database state in Figure 3.6.} 
-
+\subsection*{6.15 Show the result of each of the sample queries in Section 6.5 as it would apply to the database state in Figure 3.6.} 
+\addcontentsline{toc}{subsection}{6.15}
 \subsubsection*{Query 1: Find the name and address of all employees who work for the 'Research' department.}
 \begin{center}
 \begin{tabular}{ c | c | c }
@@ -17,7 +18,8 @@
 \begin{center} 
 \begin{tabular}{ c | c | c | c | c}
   PNUMBER & DNUM & LNAME & ADDRESS & BDATE \\ \hline
-  10 & 4 & Wallace & 291 Berry, Bellaire, TX &20-JUN-31 \\  30 & 4 & Wallace & 291 Berry, Bellaire, TX & 20-JUN-31 \\ 
+  10 & 4 & Wallace & 291 Berry, Bellaire, TX &20-JUN-31 \\
+  30 & 4 & Wallace & 291 Berry, Bellaire, TX & 20-JUN-31 \\ 
 \end{tabular}
 \end{center}
 
@@ -41,19 +43,25 @@
 \begin{center}
 \begin{tabular}{ c | c }
   LNAME & FNAME \\ \hline
-  Smith & John \\  Wong & Franklin \\
+  Smith & John \\
+  Wong & Franklin \\
 \end{tabular}
 \end{center}
 
-\subsubsection*{Query 6 List the names of employees who have no dependents.}
+\subsubsection*{Query 6: List the names of employees who have no dependents.}
 \begin{center}
 \begin{tabular}{ c | c }
   LNAME & FNAME \\ \hline
-  Zelaya & Alicia \\  Narayan & Ramesh \\  English & Joyce \\  Jabbar & Ahmad \\  Borg & James \\
+  Zelaya & Alicia \\
+  Narayan & Ramesh \\
+  English & Joyce \\
+  Jabbar & Ahmad \\
+  Borg & James \\
 \end{tabular}
 \end{center}
 
-\subsubsection*{Query 7: List the names of managers who have at least one dependent.}\begin{center}
+\subsubsection*{Query 7: List the names of managers who have at least one dependent.}
+\begin{center}
 \begin{tabular}{ c | c }
   LNAME & FNAME \\ \hline
   Wallace & Jennifer \\
@@ -62,6 +70,7 @@
 \end{center}
 
 \subsection*{6.16 Specify the following queries on the COMPANY relational database schema shown in Figure 5.5, using the relational operators discussed in this chapter. Also show the result of each query as it would apply to the database state in Figure 3.6.}
+\addcontentsline{toc}{subsection}{6.16}
 I use the symbol $\sigma$ for SELECT, $\pi$ for PROJECT, $\rhd\lhd$ for EQUIJOIN, * for NATURAL JOIN, and $\mathfrak{F}$ for FUNCTION.
 
 \subsubsection*{(a) Retrieve the names of employees in department 5 who work more than 10 hours per week on the "ProductX" project.}
@@ -152,6 +161,7 @@ RESULT $\Leftarrow$ $\pi$ \textsubscript{LNAME,FNAME} (EMPLOYEE * NON\_WORKING\_
   LNAME & FNAME \\ \hline
 \end{tabular}
 \end{center}
+
 \subsubsection*{(g) For each department, retrieve the department name and the average salary of all employees working in that department.}
 \subsubsection*{Relational Operators}
 DEPT\_AVG\_SALS(DNUMBER,AVG\_SAL) $\Leftarrow$ \textsubscript{DNO} $\mathfrak{F}$ \textsubscript{AVG SALARY} (EMPLOYEE)\\
