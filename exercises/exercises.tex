@@ -1,15 +1,36 @@
-\documentclass[11pt, oneside]{article}   	% use "amsart" instead of "article" for AMSLaTeX format
-\usepackage{geometry}                		% See geometry.pdf to learn the layout options. There are lots.
-\geometry{letterpaper}                   		% ... or a4paper or a5paper or ... 
-%\geometry{landscape}                		% Activate for for rotated page geometry
-%\usepackage[parfill]{parskip}    		% Activate to begin paragraphs with an empty line rather than an indent
-\usepackage{graphicx}				% Use pdf, png, jpg, or eps§ with pdflatex; use eps in DVI mode
-								% TeX will automatically convert eps --> pdf in pdflatex		
+\documentclass[11pt, oneside]{article}   	
+\usepackage{geometry}                		
+\geometry{letterpaper}                   		
+
+\usepackage{graphicx}				
+								
 \usepackage{amssymb}
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
 \usepackage{fixltx2e}
 \usepackage{mathtools}
+\usepackage{enumerate}
+\usepackage{floatrow}
+\usepackage{listings}
+
+\usepackage{color}
+
+\definecolor{mygreen}{rgb}{0,0.6,0}
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+
+\lstset{ 
+  basicstyle=\footnotesize,        
+  breakatwhitespace=false,         
+  breaklines=true,                 
+  deletekeywords={YEAR},            
+  keepspaces=true,                 
+  keywordstyle=\color{blue},       
+  stringstyle=\color{mymauve},     
+}
+
+\newcommand{\itab}[1]{\hspace{0em}\rlap{#1}}
+\newcommand{\tab}[1]{\hspace{.2\textwidth}\rlap{#1}}
 
 \title{Selected Exercises from Fundamentals of Database Systems}
 \author{Andrew Kowalczyk}
@@ -20,33 +41,28 @@
 \maketitle
 I selected around 40 questions from the 6$^{th}$ edition of \textit{Fundamentals of Database Systems} by Ramez Elmasri and Shamkant Navathe. This was part of my requirement for my Introduction to Database Systems course taken in the Fall of 2013.
 
+\pagebreak
+\tableofcontents
+\pagebreak
+
 \input{chapters/chapter-1.tex}
-\pagebreak
-
 \input{chapters/chapter-2.tex}
-\pagebreak
-
 \input{chapters/chapter-3.tex}
-\pagebreak
-
-\input{chapters/chapter-4.tex}
-\pagebreak
-
-\input{chapters/chapter-5.tex}
-\pagebreak
-
+% \input{chapters/chapter-4.tex}
 \input{chapters/chapter-6.tex}
-\pagebreak
-
 \input{chapters/chapter-7.tex}
-\pagebreak
+% \input{chapters/chapter-8.tex}
+% \input{chapters/chapter-9.tex}
+% \input{chapters/chapter-11.tex}
+% \input{chapters/chapter-15.tex}
+% \input{chapters/chapter-16.tex}
+% \input{chapters/chapter-17.tex}
+% \input{chapters/chapter-19.tex}
+% \input{chapters/chapter-22.tex}
+% \input{chapters/chapter-23.tex}
+% \input{chapters/chapter-24.tex}
+% \input{chapters/chapter-26.tex}
+% \input{chapters/chapter-28.tex}
 
-\input{chapters/chapter-8.tex}
-\pagebreak
-
-\input{chapters/chapter-9.tex}
-\pagebreak
-
-\input{chapters/chapter-10.tex}
 
 \end{document}  
