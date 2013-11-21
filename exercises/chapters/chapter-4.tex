@@ -1,1 +1,63 @@
 \section*{Chapter 4}
+\addcontentsline{toc}{section}{Chapter 4}
+
+\subsection*{4.9 How can the key and foreign key constraints be enforced by the DBMS? Is the enforcement technique you suggest difficult to implement? Can the constraint checks be executed efficiently when updates are applied to the database?}
+\addcontentsline{toc}{subsection}{4.9}
+
+In order to check efficiently for the key constraint, one can create an index on all of the attributes that form each primary or secondary key. Even before the new record is inserted, each index is searched to insure that no value currently exists in the index that matches the key value in the new record. If this is the case, the record is inserted successfully and we are happy.
+
+In order to check efficiently for the foreign key constraint, the primary key is given an index for each referenced relation. Due to this, the check efficient enough for our purposes. Each time a new record is inserted in a referencing relation, we search the index for the primary key of the referenced relation. The value of its foreign key is used to accomplish this. The new record can be successfully inserted in the referencing relation if the referenced record exists. For the deletion of any given referenced record, an index on the foreign key of each of the referencing relations is very useful. We want to efficiently determine whether any records reference that given record. If the techniques described above do not exist, then, unfortunately, we must do linear searches to check for any of the above constraints. This would making the checks quite inefficient, and it would make us unhappy.
+
+
+\subsection*{4.12 Specify the following queries in SQL on the database schema of Figure 1.2.}
+\addcontentsline{toc}{subsection}{4.12}
+\subsubsection*{(a) Retrieve the names of all senior students majoring in "CS" (computer sci- ence).}
+\begin{lstlisting}[language=SQL]
+SELECT Name 
+FROM   STUDENT
+WHERE  Major="CS"
+    AND Class="4"
+\end{lstlisting}
+
+\subsubsection*{(b) Retrieve the names of all courses taught by Professor King in 2007 and 2008.}
+\begin{lstlisting}[language=SQL]
+SELECT Course_name
+FROM   COURSE,
+       SECTION
+WHERE COURSE.Course_number=SECTION.Course_number
+    AND Instructor="King"
+    AND (Year="07" OR Year="08")
+\end{lstlisting}
+
+\subsubsection*{(c) For each section taught by Professor King, retrieve the course number, semester, year, and number of students who took the section.}
+\begin{lstlisting}[language=SQL]
+SELECT Course_number,
+       Semester,
+       Year,
+       COUNT(*)
+FROM   SECTION,
+       GRADE_REPORT
+WHERE Instructor="King"
+    AND SECTION.Section_identifier=GRADE_REPORT.Section_identifier
+GROUP BY Course_number, Semester, Year
+\end{lstlisting}
+
+\subsubsection*{(d) Retrieve the name and transcript of each senior student (Class = 4) majoring in CS. A transcript includes course name, course number, credit hours, semester, year, and grade for each course completed by the student.}
+\begin{lstlisting}[language=SQL]
+SELECT Name,
+       C.Course_name,
+       C.Course_number,
+       Credit_hours,
+       Semester,
+       Year,
+       Grade
+FROM   STUDENT ST,
+       COURSE C,
+       SECTION S,
+       GRADE_REPORT G
+WHERE Class=4 
+    AND Major="CS"
+    AND ST.StudentNumber=G.StudentNumber
+    AND G.Section_identifier=S.Section_identifier
+    AND S.Course_number=C.Course_number
+\end{lstlisting}
