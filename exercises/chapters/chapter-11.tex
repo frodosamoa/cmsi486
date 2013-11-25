@@ -1,0 +1,75 @@
+\section*{Chapter 11}
+\addcontentsline{toc}{section}{Chapter 11}
+
+\subsection*{11.31 Map the COMPANY ER schema in Figure 7.2 into ODL classes. Include appropriate methods for each class.}
+\addcontentsline{toc}{subsection}{11.31}
+
+\begin{itemize} \itemsep0em
+\item[] \itab{\textbf{class} Employee}
+\item[] \itab{( \textbf{extent}} \tab{employees}
+\item[] \itab{\hspace{2 mm} \textbf{key}} \tab{ssn} \tab{)}
+\item[] \itab{\{ \textbf{attribute}} \tab{\textbf{struct} name} \tab{\{ \textbf{string} fname,}
+\item[] \itab{} \tab{} \tab{\hspace{3 mm}\textbf{string} mname,}
+\item[] \itab{} \tab{} \tab{\hspace{3 mm}\textbf{string} lname \hspace{2 mm}\} name;}
+\item[] \itab{\hspace{2 mm} \textbf{attribute}} \tab{\textbf{string}} \tab{ssn;}
+\item[] \itab{\hspace{2 mm} \textbf{attribute}} \tab{\textbf{date}} \tab{bdate;}
+\item[] \itab{\hspace{2 mm} \textbf{attribute}} \tab{\textbf{enum}} \tab{Gender{M, F} sex;}
+\item[] \itab{\hspace{2 mm} \textbf{attribute}} \tab{\textbf{string}} \tab{address;}
+\item[] \itab{\hspace{2 mm} \textbf{attribute}} \tab{\textbf{float}} \tab{salary;}
+\item[] \itab{\hspace{2 mm} \textbf{attribute}} \tab{Employee} \tab{supervisor;}
+\item[] \itab{\hspace{2 mm} \textbf{relationship}} \tab{Department works\_for \textbf{inverse} Department:: has\_employees;}
+\item[] \itab{\hspace{2 mm} \textbf{relationship}} \tab{set<Hours\_Worked> work \textbf{inverse} Hours\_Worked:: work\_by;}
+\item[] \itab{\hspace{2 mm} \textbf{short}} \tab{age();}
+\item[] \itab{\hspace{2 mm} \textbf{void}} \tab{give\_raise(\textbf{in} \textbf{float} raise);}
+\item[] \itab{\hspace{2 mm} \textbf{void}} \tab{change\_address(\textbf{in} \textbf{string} new\_address);}
+\item[] \itab{\hspace{2 mm} \textbf{void}} \tab{reassign\_emp(\textbf{in} \textbf{string} new\_dname) \textbf{raises} (dname\_not\_valid); \};}\\
+\end{itemize}
+
+\begin{itemize} \itemsep0em
+\item[] \itab{\textbf{class} Department}
+\item[] \itab{( \textbf{extent}} \tab{departments}
+\item[] \itab{\hspace{2 mm} \textbf{key}} \tab{dname, dnumber} \tab{)}
+\item[] \itab{\{ \textbf{attribute}} \tab{\textbf{string}} \tab{dname;}
+\item[] \itab{\hspace{2 mm} \textbf{attribute}} \tab{\textbf{short}} \tab{dnumber;}
+\item[] \itab{\hspace{2 mm} \textbf{attribute}} \tab{\textbf{struct}} \tab{Dept\_Mgr {Employee manager, \textbf{date} startdate} mgr;}
+\item[] \itab{\hspace{2 mm} \textbf{attribute}} \tab{set<\textbf{string}>} \tab{locations;}
+\item[] \itab{\hspace{2 mm} \textbf{relationship}} \tab{set<Employee> has\_employees \textbf{inverse} Employee:: works\_for;}
+\item[] \itab{\hspace{2 mm} \textbf{relationship}} \tab{set<Project> controls \textbf{inverse} Project:: controlled\_by;}
+\item[] \itab{\hspace{2 mm} \textbf{short}} \tab{no\_of\_employees();}
+\item[] \itab{\hspace{2 mm} \textbf{void}} \tab{add\_emp(\textbf{in} \textbf{string} new\_essn) \textbf{raises} (essn\_not\_valid);}
+\item[] \itab{\hspace{2 mm} \textbf{void}} \tab{add\_proj(\textbf{in} \textbf{string} new\_pname) \textbf{raises} (pname\_not\_valid);}
+\item[] \itab{\hspace{2 mm} \textbf{void}} \tab{change\_manger(\textbf{in} \textbf{string} new\_mssn; \textbf{in} \textbf{date} startdate) \textbf{raises} (mssn\_not\_valid); \};}\\
+\end{itemize}
+
+\begin{itemize} \itemsep0em
+\item[] \itab{\textbf{class} Project}
+\item[] \itab{( \textbf{extent}} \tab{projects}
+\item[] \itab{\hspace{2 mm} \textbf{key}} \tab{pname, pnumber} \tab{)}
+\item[] \itab{\{ \textbf{attribute}} \tab{\textbf{string}} \tab{pname;}
+\item[] \itab{\hspace{2 mm} \textbf{attribute}} \tab{\textbf{short}} \tab{pnumber;}
+\item[] \itab{\hspace{2 mm} \textbf{attribute}} \tab{\textbf{string}} \tab{location;}
+\item[] \itab{\hspace{2 mm} \textbf{relationship}} \tab{Department controlled\_by \textbf{inverse} Department:: controls;}
+\item[] \itab{\hspace{2 mm} \textbf{relationship}} \tab{set<Hours\_Worked> work\_at \textbf{inverse} Hours\_Worked:: work\_on;}
+\item[] \itab{\hspace{2 mm} \textbf{void}} \tab{reassign\_proj(\textbf{in} \textbf{string} new\_dname) \textbf{raises} (dname\_not\_valid) \};}\\
+\end{itemize}
+
+\begin{itemize} \itemsep0em
+\item[] \itab{\textbf{class} Hours\_Worked}
+\item[] \itab{( \textbf{extent}} \tab{hours\_worked )}
+\item[] \itab{\{ \textbf{attribute}} \tab{\textbf{float}} \tab{hours;}
+\item[] \itab{\hspace{2 mm} \textbf{relationship}} \tab{Employee work\_by \textbf{inverse} Employee:: work;}
+\item[] \itab{\hspace{2 mm} \textbf{relationship}} \tab{Project work\_on \textbf{inverse} Project:: work\_at;}
+\item[] \itab{\hspace{2 mm} \textbf{void}} \tab{change\_hours(\textbf{in} \textbf{float} new\_hours); \};}\\
+\end{itemize}
+
+
+\begin{itemize} \itemsep0em
+\item[] \itab{\textbf{class} Dependent}
+\item[] \itab{( \textbf{extent}} \tab{dependents )}
+\item[] \itab{\{ \textbf{attribute}} \tab{\textbf{string}} \tab{name;}
+\item[] \itab{\hspace{2 mm} \textbf{attribute}} \tab{\textbf{date}} \tab{bdate;}
+\item[] \itab{\hspace{2 mm} \textbf{attribute}} \tab{\textbf{enum}} \tab{Gender\{M, F\} sex;}
+\item[] \itab{\hspace{2 mm} \textbf{attribute}} \tab{\textbf{string}} \tab{relationship;}
+\item[] \itab{\hspace{2 mm} \textbf{attribute}} \tab{Employee} \tab{suporter;}
+\item[] \itab{\hspace{2 mm} \textbf{short}} \tab{age(); \hspace{2 mm}\};}\\
+\end{itemize}
