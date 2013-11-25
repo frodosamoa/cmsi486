@@ -1,0 +1,60 @@
+\section*{Chapter 15}
+\addcontentsline{toc}{section}{Chapter 15}
+
+\subsection*{15.21 In what normal form is the LOTS relation schema in Figure 15.12(a) with respect to the restrictive interpretations of normal form that take only the primary key into account? Would it be in the same normal form if the general definitions of normal form were used?}
+\addcontentsline{toc}{subsection}{15.21}
+
+By only taking the primary key into account, we can see that the relation schema will be in 2NF since there are no partial dependencies on the primary key. However, our relation schema is not in 3NF due to the fact that the primary key has two transitive dependencies:
+\begin{enumerate}
+\item[] PROPERTY\_ID$\#$ $\rightarrow$ COUNTY\_NAME $\rightarrow$ TAX\_RATE
+\item[] PROPERTY\_ID$\#$ $\rightarrow$ AREA $\rightarrow$ PRICE
+\end{enumerate}
+By taking all the keys into account, the relation schema will only be in 1NF (just look at the general definitions of 2NF and 3NF). This is because there is a partial dependency on the secondary key {COUNTY\_NAME, LOT\#} listed here:
+\begin{enumerate}
+\item[]COUNTY\_NAME $\rightarrow$ TAX\_RATE
+\end{enumerate}
+This violates 2NF.
+
+\subsection*{15.23 Why do spurious tuples occur in the result of joining the EMP\_PROJ1 and EMP\_LOCS relations in Figure 15.5 (result shown in Figure 15.6)?}
+\addcontentsline{toc}{subsection}{15.23}
+
+A tuple (e, l) in EMP\_LOCS shows that we have an employee, named e, working on some project at location l. A tuple (s, p, h, pn, l) in EMP\_PROJ1, shows that we have an employee working on project p at location l with social security number s. When these two are joined, the tuple (e, l) can be joined with the tuple (s, p, h, pn, l) where we have e, name of an employee, and s, social security number of a different employee. This results in spurious tuples, leaving us unhappy.
+
+\subsection*{15.27 Consider a relation R(A, B, C, D, E) with the following dependencies:
+\begin{center}
+AB $\rightarrow$ C, CD $\rightarrow$ E, DE $\rightarrow$ B\\
+\end{center}
+Is AB a candidate key of this relation? If not, is ABD? Explain your answer.}
+\addcontentsline{toc}{subsection}{15.27}
+
+No, AB += \{A,B,C\}, which is a proper subset of \{A,B,C,D,E\}.
+Yes, ABD += \{A,B,C,D,E\}.
+
+\subsection*{15.31 Consider the following relation for published books:
+\begin{center}
+BOOK (Book\_title, Author\_name, Book\_type, List\_price, Author\_affil, Publisher)
+\end{center}
+Author\_affil refers to the affiliation of author. Suppose the following dependencies exist: Book\_title $\rightarrow$ Publisher, Book\_type Book\_type $\rightarrow$ List\_price Author\_name $\rightarrow$ Author\_affil
+\begin{enumerate}
+\item What normal form is the relation in? Explain your answer.
+\item Apply normalization until you cannot decompose the relations further.
+\end{enumerate}
+State the reasons behind each decomposition.}
+\addcontentsline{toc}{subsection}{15.31}
+
+\begin{enumerate}
+\item The key for this relation is Book\_title, Authorname. Since no attributes are FFD on the key, this given relation is in 1NF. It is not in 2NF or 3NF.
+\item \begin{enumerate}
+\item 2NF decomposition:\\
+Book0 (Book\_title, Author\_name)\\
+Book1 (Book\_title, Publisher, Book\_type, List\_price)\\
+Book2 (Author\_name, Author\_affil)\\
+Any partial dependencies are eliminated by this decomposition.
+\item 3NF decomposition:\\
+Book0 (Book\_title, Author\_name)\\
+Book1-1 (Book\_title, Publisher, Book\_type)\\
+Book1-2 (Book\_type, List\_price)\\
+Book2 (Author\_name, Author\_affil)\\
+Luckily, our decomposition eliminates any sort of transitive dependency on Listprice.
+\end{enumerate}
+\end{enumerate}
