@@ -9,8 +9,8 @@ class Habit:
         self.habits = self.connection.hbt.habits
 
    
-    def insert_habit(self, name, times, occurence, reminders):
-        print 'inserting habit', name, times, occurence, reminders
+    def insert_habit(self, name, times, occurence, reminders, categories):
+        print 'inserting habit', name, times, occurence, reminders, categories
 
         habit = {'name': name,
                  'interval' : {
@@ -18,6 +18,7 @@ class Habit:
                         'occurence' : occurence
                     },
                  'reminders' : reminders,
+                 'categories' : categories
                 }
         try:
             self.habits.insert(habit)
@@ -39,7 +40,8 @@ class Habit:
                           'times' : habit['interval']['times'],
                           'occurence' : habit['interval']['occurence']
                         },
-                      'reminders' : habit['reminders']})
+                      'reminders' : habit['reminders'],
+                      'categories' : habit['categories']})
 
         return l
 
@@ -58,7 +60,8 @@ class Habit:
                           'times' : habit['interval']['times'],
                           'occurence' : habit['interval']['occurence']
                         },
-                      'reminders' : habit['reminders']})
+                      'reminders' : habit['reminders'],
+                      'categories' : habit['categories']})
 
         return l
 

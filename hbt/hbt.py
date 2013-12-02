@@ -26,7 +26,7 @@ def post_new_habit():
     times = request.forms.get('times')
     occurence = request.forms.get('occurence')
     reminders = request.forms.get('reminders')
-    categories = request.forms.get('categories')
+    categories = request.forms.get('categories').split(',')
     habits.insert_habit(name, times, occurence, reminders, categories)
 
     redirect('/')

@@ -42,15 +42,28 @@
 	    	<div class="row">
 	    		<div class="col-md-4">
 					<h1>habits</h1>
-					<button type="button" href="/newhabit" class="btn btn-link">New habit</button>
+					<button type="button" href="/newhabit" class="btn btn-danger">New habit</button>
 					<div id="habit-list">
 						<table class="table">
+							<thead>
+								<tr>
+									<td>Name</td>
+									<td>Interval</td>
+									<td>Reminders</td>
+									<td>Categories</td>
+								</tr>
+							</thead>
 				            <tbody>
 								%for habit in myhabits:
 								<tr>
 								<td>{{habit['name']}}</td>
 								<td>{{habit['interval']['times']}} times {{habit['interval']['occurence']}}</td>
 								<td>{{habit['reminders']}}</td>
+								<td>
+								%for category in habit['categories']:
+								{{category}},
+								%end
+								</td>
 								</tr>
 								%end
 							</tbody>
