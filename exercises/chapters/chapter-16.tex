@@ -1,0 +1,14 @@
+\section*{Chapter 16}
+\addcontentsline{toc}{section}{Chapter 16}
+
+
+\subsection*{16.18 Show that, if the matrix $S$ resulting from Algorithm 16.3 does not have a row that is all $a$ symbols, projecting $S$ on the decomposition and joining it back will always produce at least one spurious tuple.}
+\addcontentsline{toc}{subsection}{16.18}
+
+For every relation $R$ $i$ in our decomposition, the matrix $S$ initially has one row with $a$ symbols under the columns for the attributes. 
+When we project $S$ on each $R$ $i$, the algorithm will produce one row consisting of all $a$ symbols in each S($R$ $i$) since we never change an $a$ symbol into a $b$ symbol during the application of the algorithm. Joining all the $a$ rows in each projection will give us at least one row of all $a$ symbols. So, if $S$ does not have a row that is all $a$, and then we apply this algorithm, our result will have at least one all $a$ row.
+This means we have a spurious tuple.
+
+\subsection*{16.19 Show that the relation schemas produced by Algorithm 16.5 are in BCNF.}
+\addcontentsline{toc}{subsection}{16.19}
+The algorithm loop will only end after all relation schemas are in BCNF.
