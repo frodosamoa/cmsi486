@@ -1,0 +1,11 @@
+\section*{Chapter 19}
+\addcontentsline{toc}{section}{Chapter 19}
+
+
+\subsection*{19.17 Can a nondense index be used in the implementation of an aggregate operator? Why or why not?}
+\addcontentsline{toc}{subsection}{19.17}
+A nondense index contains entries for only some of the search values. A great example of a nondense index is a primary index because it includes an entry for every disk block of a data file as opposed to having one for every record. The nondense index would potentially be able to be used to compute the MIN function. This would be the case if the smallest key value in the data block corresponded to the keys in the index. Due to all the values not appearing in the index, MAX, AVG, SUM and COUNT would not be able to determined.
+
+\subsection*{19.21 Extend the sort-merge join algorithm to implement the LEFT OUTER JOIN operation.}
+\addcontentsline{toc}{subsection}{19.21}
+Before exteding the sort-merge join algorithmn, let's explain a LEFT OUTER JOIN operation. A LEFT OUTER JOIN of relations $R$ and $S$ would produce all of the rows from $R$ and $S$ that join. It would also produce the rows from $R$ that \textit{do not} join any row from S. In order to extend the sort-merge join algorithm, we only need to modify anything during the merge phase. In the first and second steps of the algorithm, the relations $R$ and $S$ would be soreted on their respective join column or columns. The third step would include them merging of the sorted $R$ and $S$ relations would be merged. If the $R$ row and $S$ row have the same value for the join column, their rows would be combined. Any given $R$ row would also be placed in the LEFT OUTER JOIN result if no matching $S$ row was found. The corresponding attributes from the $S$ relation would simply be NULL values.
