@@ -1,0 +1,54 @@
+\section*{Chapter 17}
+\addcontentsline{toc}{section}{Chapter 17}
+
+\subsection*{17.27 Consider a disk with the following characteristics (these are not parameters of any particular disk unit): block size B = 512 bytes; interblock gap size G = 128 bytes; number of blocks per track = 20; number of tracks per surface = 400. A disk pack consists of 15 double-sided disks.}
+\addcontentsline{toc}{subsection}{17.27}
+\subsubsection*{(a) What is the total capacity of a track, and what is its useful capacity (excluding interblock gaps)?}
+\begin{description}
+\item[Total] 20 * (512 + 128) = 12800 bytes = 12.8 Kbytes
+\item[Useful] 20 * 512 = 10240 bytes = 10.24 Kbytes
+\end{description}
+
+\subsubsection*{(b) How many cylinders are there?}
+\begin{description}
+\item[Tracks] $\#$ tracks = $\#$ cylinders = 400
+\end{description}
+
+\subsubsection*{(c) What are the total capacity and the useful capacity of a cylinder?}
+\begin{description}
+\item[Total] 15 * 2 * 20 * (512 + 128) = 384000 bytes = 384 Kbytes
+\item[Useful] 15 * 2 * 20 * 512 = 307200 bytes = 307.2 Kbytes
+\end{description}
+
+\subsubsection*{(d) What are the total capacity and the useful capacity of a disk pack?}
+\begin{description}
+\item[Total] 15 * 2 * 400 * 20 * (512 + 128) = 153600000 bytes = 153.6 Mbytes
+\item[Useful] 15 * 2 * 400 * 20 * 512 = 122.88 Mbytes
+\end{description}
+
+\subsubsection*{(e) Suppose that the disk drive rotates the disk pack at a speed of 2400 rpm (revolutions per minute); what are the transfer rate (TR) in bytes/msec and the block transfer time (BTT) in msec? What is the average rotational delay (RD) in msec? What is the bulk transfer rate? (See Appendix B.)}
+\begin{description}
+\item[Transfer rate ] TR = (total track size in bytes)/(time for one disk revolution in msec) TR = (12800) / ((60 * 1000) / (2400)) = (12800) / (25) = 512 bytes/msec
+\item[Block transfer time] BTT = B / TR = 512 / 512 = 1 msec
+\item[Average rotational delay] RD = (time for one disk revolution in msec) / 2 = 25 / 2 = 12.5 msec
+\item[Bulk transfer rate] BTR = TR * (B / (B + G)) = 512 * (512/640) = 409.6 bytes/msec
+\end{description}
+
+\subsubsection*{(f) Suppose that the average seek time is 30 msec. How much time does it take (on the average) in msec to locate and transfer a single block, given its block address?}
+\begin{enumerate}
+\item[] S + RD + BTT = 30 + 12.5 + 1 = 43.5 msec
+\end{enumerate}
+
+\subsubsection*{(g) Calculate the average time it would take to transfer 20 random blocks, and compare this with the time it would take to transfer 20 consecutive blocks using double buffering to save seek time and rotational delay.}
+\begin{description}
+\item[Random] 20 * (S + RD + BTT) = 20 * 43.5 = 870 msec
+\item[Consecutive] S + RD + 20 * BTT = 30 + 12.5 + (20 * 1) = 62.5 msec
+\end{description}
+
+\subsection*{17.37 Can you think of techniques other than an unordered overflow file that can be used to make insertions in an ordered file more efficient?}
+\addcontentsline{toc}{subsection}{17.37}
+Keeping in mind the manner in which the overflow for static hash files is chained, using an overflow file in which the records are chained together is prudent. Any overflow records inserted in any block of the ordered file are linked together. Just like a linked list, a pointer to the first record in the chain is kept in the block of the main file. The list in our example can be kept ordered or unordered.
+
+\subsection*{17.39 Can you think of techniques other than chaining to handle bucket overflow in external hashing?}
+\addcontentsline{toc}{subsection}{17.39}
+Internal hashing has many techniwues which can handle bucket overflow. If a bucket is full, the record which should be inserted in that bucket may be placed in the next bucket if there is space, which is reminiscent of a technique called open addressing. Another way of approaching this problem is to simply consider using a whole overflow block for each and every bucket that becomes full.
