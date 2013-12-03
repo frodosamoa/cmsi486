@@ -1,4 +1,13 @@
 /* Fixed navbar that is 70px tall */
 body {
-  padding-bottom: 70px;
+  padding-top: 70px;
+}
+
+/* Center canvas. */
+#canvas {
+	padding-left: 0;
+    padding-right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
 }
