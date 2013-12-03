@@ -1,0 +1,8 @@
+\section*{Chapter 24}
+\addcontentsline{toc}{section}{Chapter 24}
+
+
+\subsection*{24.33 Suppose that privilege (a) of Exercise 24.32 is to be given with GRANT OPTION but only so that account A can grant it to at most five accounts, and each of these accounts can propagate the privilege to other accounts but without the GRANT OPTION privilege. What would the horizontal and vertical propagation limits be in this case?}
+\addcontentsline{toc}{subsection}{24.33}
+
+A horizontal propagation limit of 5 and a vertical propagation limit of level 1 would be granted to USER\_A. This is so that USER\_A can then grant wothough needing the  GRANT OPTION. USER\_A would have a level 0 vertical limit allowing him or her to grant it to at most five other users. After this, USER\_A cannot further grant any more privileges.
