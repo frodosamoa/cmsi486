@@ -1,0 +1,12 @@
+\section*{Chapter 23}
+\addcontentsline{toc}{section}{Chapter 23}
+
+\subsection*{23.21 Suppose that the system crashes before the $\lbrack$ read\_item, T3,A $\rbrack$ entry is written to the log in Figure 23.1(b). Will that make any difference in the recovery process?}
+\addcontentsline{toc}{subsection}{23.21}
+
+Since read\_item operations are only needed to tell if cascading rollback of supplmentary transactions are necessary, no difference in the recovery process will be seen.
+
+\subsection*{23.22 Suppose that the system crashes before the $\lbrack$ write\_item,T2,D,25,26 $\rbrack$ entry is written to the log in Figure 23.1(b). Will that make any difference in the recovery process?}
+\addcontentsline{toc}{subsection}{23.22}
+
+It will. Transactions T2 and T3 would not be commited just yet, so they would have to be rolled back in the recovery process.
