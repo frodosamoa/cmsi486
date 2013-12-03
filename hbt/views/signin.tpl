@@ -6,7 +6,6 @@
 		<title>hbt</title>
 		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
 		<link rel="stylesheet" href="/static/css/welcome.css">
-		<link rel="stylesheet" href="/static/css/signin.css">
 		<title>welcome</title>
 
 
