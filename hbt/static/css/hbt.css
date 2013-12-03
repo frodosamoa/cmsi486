@@ -1,6 +1,6 @@
-/* Fixed navbar that is 70px tall */
+/* Fixed navbar that is 50px tall */
 body {
-  padding-top: 70px;
+  padding-top: 50px;
 }
 
 /* Center canvas. */
@@ -10,4 +10,8 @@ body {
     margin-left: auto;
     margin-right: auto;
     display: block;
+}
+
+.btn-toolbar {
+	text-align: center;
 }

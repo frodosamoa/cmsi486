@@ -41,9 +41,17 @@
 	    </div>
 
 	    <div class="container">
-	    	<div class="row">
-	    		<h1 class="text-center">graphs</h1>
-	    		<canvas id="canvas" height="300" width="600"></canvas>
+	   		<h1 class="text-center">graphs</h1>
+	   		<canvas id="canvas" height="300" width="600"></canvas>
+	   		<br><br>
+	   		<div class="text-center">
+			  	<div class="btn-group">
+					<button type="button" class="btn btn-default">week</button>
+					<button type="button" class="btn btn-default">month</button>
+					<button type="button" class="btn btn-default">three months</button>
+					<button type="button" class="btn btn-default">six months</button>
+					<button type="button" class="btn btn-default">year</button>
+				</div>
 			</div>
 		</div>
 
