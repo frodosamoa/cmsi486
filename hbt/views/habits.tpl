@@ -5,6 +5,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>hbt</title>
 		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+		<link rel="stylesheet" href="/static/css/hbt.css">
 	</head>
 	<body>
 
@@ -38,7 +39,7 @@
 	      </div>
 	    </div>
 
-	    <div class="container" style="padding-top: 70px;">
+	    <div class="container">
 	    	<div class="row">
 	    		<div class="col-md-4">
 					<h1>habits</h1>

@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>Habits</title>
 		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+		<link rel="stylesheet" href="/static/css/hbt.css">
 	</head>
 	<body>
 
@@ -36,7 +39,7 @@
 	      </div>
 	    </div>
 
-	    <div class="container" style="padding-top: 70px;">
+	    <div class="container">
 			<h2>New habit</h2>
 			<form action="/newhabit" method="POST">
 			<h4>Name</h4>

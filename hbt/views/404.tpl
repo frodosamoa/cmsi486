@@ -5,9 +5,9 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>hbt: categories</title>
 		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+		<link rel="stylesheet" href="/static/css/hbt.css">
 	</head>
 	<body>
-
 		<div class="navbar navbar-default navbar-fixed-top" role="navigation">
 	      <div class="container">
 	        <div class="navbar-header">
@@ -38,7 +38,7 @@
 	      </div>
 	    </div>
 
-	    <div class="container" style="padding-top: 70px;">
+	    <div class="container">
 	    	<div class="text-center">
 				<h1>error: 404</h1>
 				<h3>page not found</h3>
