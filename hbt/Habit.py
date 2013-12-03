@@ -8,7 +8,7 @@ class Habit:
         self.connection = pymongo.MongoClient('localhost', 27017)
         self.habits = self.connection.hbt.habits
 
-   
+
     def insert_habit(self, name, times, occurence, reminders, categories):
         print 'inserting habit', name, times, occurence, reminders, categories
 

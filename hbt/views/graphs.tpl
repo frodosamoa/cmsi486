@@ -5,6 +5,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>hbt: graphs</title>
 		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+		<link rel="stylesheet" href="/static/js/Chart.min.js">
 	</head>
 	<body>
 
@@ -41,6 +42,8 @@
 	    <div class="container" style="padding-top: 70px;">
 	    	<div class="row">
 	    		<h1>graphs</h1>
+
+
 			</div>
 		</div>
 

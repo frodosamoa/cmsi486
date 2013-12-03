@@ -1,20 +1,29 @@
 import json
 import Habit
 import Day
+import Session
 
 from bottle import route, get, post, put, debug, run, request, redirect, template, static_file, error 
 # get_url
 from pymongo import MongoClient
+
+
+
+@route('/signin')
+def signin():
+    return template('signin')
+
+@route('/signup')
+def signup():
+    return template('signup')
+
+
 
 @route('/')
 def get_habits():
     l = habits.get_habits(10)
     return template('habits', dict(myhabits=l))
 
-
-@route('/login')
-def login():
-    return template('login')
 
 @route('/newhabit')
 def newhabit():
@@ -32,6 +41,8 @@ def post_new_habit():
     redirect('/')
 
 
+
+
 @route('/categories')
 def get_categories():
     return template('categories');
@@ -39,6 +50,9 @@ def get_categories():
 @route('/graphs')
 def get_graphs():
     return template('graphs');
+
+
+
 
 @put('/edithabit')
 def edit_habit():
@@ -53,9 +67,15 @@ def edit_habit():
     redirect('/')
 
 ####
-# 
+# STATIC FILES
+####
+
+@route('/static/<filename:path>')
+def server_static(filename):
+    return static_file(filename, root='static/')
+
+####
 # ERRORS
-#
 ####
 
 @error(404)
@@ -65,9 +85,8 @@ def error404(error):
 
 client = MongoClient('localhost', 27017)
 database = client.hbt
-
 habits = Habit.Habit(database)
-days = Day.Day(database)
+sessions = Session.Session(database)
 
 debug(True)
 run(host='localhost', port=8080) 
