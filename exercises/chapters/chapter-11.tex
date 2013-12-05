@@ -24,7 +24,7 @@
 \item[] \itab{\hspace{2 mm} \textbf{void}} \tab{change\_address(\textbf{in} \textbf{string} new\_address);}
 \item[] \itab{\hspace{2 mm} \textbf{void}} \tab{reassign\_emp(\textbf{in} \textbf{string} new\_dname) \textbf{raises} (dname\_not\_valid); \};}\\
 \end{itemize}
-
+\pagebreak
 \begin{itemize} \itemsep0em
 \item[] \itab{\textbf{class} Department}
 \item[] \itab{( \textbf{extent}} \tab{departments}
@@ -38,7 +38,8 @@
 \item[] \itab{\hspace{2 mm} \textbf{short}} \tab{no\_of\_employees();}
 \item[] \itab{\hspace{2 mm} \textbf{void}} \tab{add\_emp(\textbf{in} \textbf{string} new\_essn) \textbf{raises} (essn\_not\_valid);}
 \item[] \itab{\hspace{2 mm} \textbf{void}} \tab{add\_proj(\textbf{in} \textbf{string} new\_pname) \textbf{raises} (pname\_not\_valid);}
-\item[] \itab{\hspace{2 mm} \textbf{void}} \tab{change\_manger(\textbf{in} \textbf{string} new\_mssn; \textbf{in} \textbf{date} startdate) \textbf{raises} (mssn\_not\_valid); \};}\\
+\item[] \itab{\hspace{2 mm} \textbf{void}} \tab{change\_manger(\textbf{in} \textbf{string} new\_mssn; \textbf{in} \textbf{date} startdate),}
+\item[] \itab{\hspace{22em} \textbf{raises} (mssn\_not\_valid) \};}\\
 \end{itemize}
 
 \begin{itemize} \itemsep0em
@@ -52,7 +53,7 @@
 \item[] \itab{\hspace{2 mm} \textbf{relationship}} \tab{set<Hours\_Worked> work\_at \textbf{inverse} Hours\_Worked:: work\_on;}
 \item[] \itab{\hspace{2 mm} \textbf{void}} \tab{reassign\_proj(\textbf{in} \textbf{string} new\_dname) \textbf{raises} (dname\_not\_valid) \};}\\
 \end{itemize}
-
+\pagebreak
 \begin{itemize} \itemsep0em
 \item[] \itab{\textbf{class} Hours\_Worked}
 \item[] \itab{( \textbf{extent}} \tab{hours\_worked )}
