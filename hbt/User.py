@@ -10,11 +10,12 @@ class User:
         self.users = self.connection.hbt.users
         self.SECRET = 'wow such secret'
 
-    def salt():
-        return ''.join(random.choice(string.ascii_letters)) for x in range(12))
+    def salt(num_chars=12, chars=string.ascii_letters):
+        return ''.join(random.choice(chars) for x in range(num_chars))
 
-    def create_password_hash(self, password):
-        salt = self.salt();
+    def create_password_hash(self, password, salt=None):
+        if salt == None:
+            salt = self.salt();
         return hashlib.sha256(password + salt).hexdigest() + "," + salt
 
     def add_user(self, username, password):
@@ -39,10 +40,16 @@ class User:
         try:
             user = self.users.find_one({'_id': username})
         except:
-            print "couldn't query for the user"
+            print "couldn't find that user"
 
         if user is None:
             print "user isn't in database"
+            return None
+
+        salt = user['password'].split(',')[1]
+
+        if user['password'] != self.create_password_hash(password, salt):
+            print "password doesn't match"
             return None
 
         return user
