@@ -44,7 +44,13 @@
 	    	<div class="row">
 	    		<div class="col-md-4">
 					<h1>habits</h1>
-					<a type="button" href="/newhabit" class="btn btn-info">new habit</a>
+				</div>
+				<div class="col-md-8">
+					<a id="add-habit" type="button" href="/newhabit" class="btn btn-success">new habit</a>
+				</div>
+			</div>
+	    	<div class="row">
+	    		<div class="col-md-5">
 					<div id="habit-list">
 						<table class="table">
 							<thead>

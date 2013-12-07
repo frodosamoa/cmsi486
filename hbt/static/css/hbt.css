@@ -15,3 +15,8 @@ body {
 .btn-toolbar {
 	text-align: center;
 }
+
+#add-habit {
+	margin-top: 25px;
+	float: right;
+}
