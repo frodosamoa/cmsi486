@@ -63,6 +63,7 @@ class User:
 
         errors['username_error'] = ""
         errors['password_error'] = ""
+        errors['verify_error'] = ""
 
         if not USER_REGEX.match(username):
             errors['username_error'] = "username must be composed of letters and numbers"
@@ -73,6 +74,10 @@ class User:
                 errors['password_error'] = "password must be between 6 and 30 characters long"
             else:
                 errors['password_error'] = "invalid password"
+            return False
+            
+        if password != verify:
+            errors['verify_error'] = "passwords don't match"
             return False
 
         return True
