@@ -1,14 +1,12 @@
-/*
- * TAKEN FROM BOOTSTRAP
- * http://getbootstrap.com/examples/signin/signin.css
- *
- * Thank you Bootstrap! Modified for my page.
- */
-
 body {
   padding-top: 40px;
   padding-bottom: 40px;
   background-color: #eee;
+}
+
+.error {
+  color: red;
+  display: inline-block;
 }
 
 .form-signin, .form-signup {
