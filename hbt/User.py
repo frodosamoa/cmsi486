@@ -32,3 +32,7 @@ class User:
             return False
 
         return True
+
+    def validate_login(self, username, password):
+
+        return self.users.find_one({'_id': username})
