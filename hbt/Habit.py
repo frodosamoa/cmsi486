@@ -9,10 +9,11 @@ class Habit:
         self.habits = self.connection.hbt.habits
 
 
-    def insert_habit(self, name, times, occurence, reminders, categories):
-        print 'inserting habit', name, times, occurence, reminders, categories
+    def insert_habit(self, username, name, times, occurence, reminders, categories):
+        print 'inserting habit', username, name, times, occurence, reminders, categories
 
-        habit = {'name': name,
+        habit = {'username' : username,
+                 'name': name,
                  'interval' : {
                         'times' : times,
                         'occurence' : occurence
@@ -28,9 +29,9 @@ class Habit:
             print 'unexpected error:', sys.exc_info()[0]
 
    
-    def get_habits(self, num_habits):
+    def get_habits(self, username):
 
-        cursor = self.habits.find().limit(num_habits)
+        cursor = self.habits.find({'username' : username})
 
         l = []
 
@@ -48,9 +49,9 @@ class Habit:
     def update_habit(self):
         return 0
 
-    def get_habit_by_category(self, category, num_habits):
+    def get_habit_by_category(self, username, category, num_habits):
 
-        cursor = self.habits.find({}, {'categories' : { '$in' : [category] } } ).limit(num_habits)
+        cursor = self.habits.find({'username' : username}, {'categories' : { '$in' : [category] } } ).limit(num_habits)
 
         l = []
 
