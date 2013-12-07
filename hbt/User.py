@@ -13,6 +13,9 @@ class User:
 
         try:
             self.users.insert(user, safe=True)
+        except pymongo.errors.OperationFailure:
+            print "we have a mongo error"
+            return False
         except pymongo.errors.DuplicateKeyError as e:
             print "that username is already taken"
             return False
