@@ -1,3 +1,4 @@
+import hashlib
 import pymongo
 
 class User:
@@ -7,9 +8,13 @@ class User:
         self.users = self.connection.hbt.users
         self.SECRET = 'wow such secret'
 
-    def add_user(self, username, password):
+    def create_password_hash(self, password):
+        return hashlib.sha256(password).hexdigest()
 
-        user = {'_id': username, 'password': password}
+    def add_user(self, username, password):
+        password_hash = self.create_password_hash(password)
+
+        user = {'_id': username, 'password': password_hash}
 
         try:
             self.users.insert(user, safe=True)
