@@ -41,4 +41,8 @@ class User:
         except:
             print "couldn't query for the user"
 
+        if user is None:
+            print "user isn't in database"
+            return None
+
         return user
