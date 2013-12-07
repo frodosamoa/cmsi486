@@ -5,7 +5,7 @@ import Session
 import User
 import cgi
 
-from bottle import route, get, post, put, debug, run, request, redirect,
+from bottle import route, get, post, put, debug, run, request, redirect
 from bottle import template, static_file, error, response
 from pymongo import MongoClient
 
