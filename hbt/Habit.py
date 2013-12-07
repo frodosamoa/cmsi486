@@ -1,6 +1,7 @@
 import sys
 import re
 import pymongo
+import datetime
 
 class Habit:
    
@@ -12,6 +13,9 @@ class Habit:
     def insert_habit(self, username, name, times, occurence, reminders, categories):
         print 'inserting habit', username, name, times, occurence, reminders, categories
 
+        now = datetime.datetime.now()
+        today = now.strftime("%Y-%m-%d")
+
         habit = {'username' : username,
                  'name': name,
                  'interval' : {
@@ -19,7 +23,8 @@ class Habit:
                         'occurence' : occurence
                     },
                  'reminders' : reminders,
-                 'categories' : categories
+                 'categories' : categories,
+                 'dayCreated' : today,
                 }
         try:
             self.habits.insert(habit, safe=True)
