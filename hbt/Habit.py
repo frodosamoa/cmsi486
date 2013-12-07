@@ -65,11 +65,3 @@ class Habit:
                       'categories' : habit['categories']})
 
         return l
-
-
-
-
-
-
-
-
