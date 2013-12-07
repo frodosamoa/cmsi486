@@ -14,8 +14,7 @@ class Session:
 
     def begin_session(self, username):
 
-        session_id = self.random_string()
-        session = {'username': username, '_id': session_id}
+        session = {'username': username, '_id': self.random_string()}
 
         try:
             self.sessions.insert(session, safe=True)
@@ -33,4 +32,19 @@ class Session:
 
         self.sessions.remove({'_id': session_id})
 
-        return
+    def get_session(self, session_id):
+
+        if session_id is None:
+            return None
+
+        return self.sessions.find_one({'_id': session_id})
+
+    def get_username(self, session_id):
+
+        session = self.get_session(session_id)
+        if session is None:
+            return None
+        else:
+            return session['username']
+
+
