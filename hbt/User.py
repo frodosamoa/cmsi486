@@ -35,4 +35,10 @@ class User:
 
     def validate_login(self, username, password):
 
-        return self.users.find_one({'_id': username})
+        user = None
+        try:
+            user = self.users.find_one({'_id': username})
+        except:
+            print "couldn't query for the user"
+
+        return user
