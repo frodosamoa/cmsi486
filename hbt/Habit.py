@@ -24,9 +24,6 @@ class Habit:
         try:
             self.habits.insert(habit, safe=True)
             print 'inserting the habit'
-        except pymongo.errors.OperationFailure:
-            print "we have a mongo error"
-            return False
         except:
             print 'error inserting habit'
             print 'unexpected error:', sys.exc_info()[0]
