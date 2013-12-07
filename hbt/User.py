@@ -59,11 +59,20 @@ class User:
 
     def validate_signup(self, username, password, verify, errors):
         USER_REGEX = re.compile(r"^[a-zA-Z0-9_-]{3,20}$")
+        PASSWORD_REGEX = re.compile(r"^.{6,30}$")
 
         errors['username_error'] = ""
+        errors['password_error'] = ""
 
         if not USER_REGEX.match(username):
             errors['username_error'] = "username must be composed of letters and numbers"
+            return False
+
+        if not PASSWORD_REGEX.match(password):
+            if (len(password) < 6 or len(password) > 40):
+                errors['password_error'] = "password must be between 6 and 30 characters long"
+            else:
+                errors['password_error'] = "invalid password"
             return False
 
         return True
