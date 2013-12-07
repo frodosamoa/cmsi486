@@ -52,7 +52,7 @@ class Habit:
     def update_habit(self):
         return 0
 
-    def get_habit_by_category(self, username, category):
+    def get_habits_by_category(self, username, category):
 
         cursor = self.habits.find({'username' : username}, {'categories' : { '$in' : [category] } } )
 
