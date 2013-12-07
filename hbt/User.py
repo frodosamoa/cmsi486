@@ -1,3 +1,5 @@
+import random
+import string
 import hashlib
 import pymongo
 
@@ -8,8 +10,12 @@ class User:
         self.users = self.connection.hbt.users
         self.SECRET = 'wow such secret'
 
+    def salt():
+        return ''.join(random.choice(string.ascii_letters)) for x in range(12))
+
     def create_password_hash(self, password):
-        return hashlib.sha256(password).hexdigest()
+        salt = self.salt();
+        return hashlib.sha256(password + salt).hexdigest() + "," + salt
 
     def add_user(self, username, password):
         password_hash = self.create_password_hash(password)
