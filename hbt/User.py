@@ -2,6 +2,7 @@ import random
 import string
 import hashlib
 import pymongo
+import re
 
 class User:
 
@@ -10,12 +11,13 @@ class User:
         self.users = self.connection.hbt.users
         self.SECRET = 'wow such secret'
 
-    def salt(num_chars=12, chars=string.ascii_letters):
+    def salt(self, num_chars=12, chars=string.ascii_letters):
         return ''.join(random.choice(chars) for x in range(num_chars))
 
     def create_password_hash(self, password, salt=None):
         if salt == None:
-            salt = self.salt();
+            salt = self.salt()
+
         return hashlib.sha256(password + salt).hexdigest() + "," + salt
 
     def add_user(self, username, password):
@@ -54,3 +56,14 @@ class User:
             return None
 
         return user
+
+    def validate_signup(self, username, password, verify, errors):
+        USER_REGEX = re.compile(r"^[a-zA-Z0-9_-]{3,20}$")
+
+        errors['username_error'] = ""
+
+        if not USER_REGEX.match(username):
+            errors['username_error'] = "username must be composed of letters and numbers"
+            return False
+
+        return True
