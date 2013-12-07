@@ -22,8 +22,11 @@ class Habit:
                  'categories' : categories
                 }
         try:
-            self.habits.insert(habit)
+            self.habits.insert(habit, safe=True)
             print 'inserting the habit'
+        except pymongo.errors.OperationFailure:
+            print "we have a mongo error"
+            return False
         except:
             print 'error inserting habit'
             print 'unexpected error:', sys.exc_info()[0]
@@ -49,9 +52,9 @@ class Habit:
     def update_habit(self):
         return 0
 
-    def get_habit_by_category(self, username, category, num_habits):
+    def get_habit_by_category(self, username, category):
 
-        cursor = self.habits.find({'username' : username}, {'categories' : { '$in' : [category] } } ).limit(num_habits)
+        cursor = self.habits.find({'username' : username}, {'categories' : { '$in' : [category] } } )
 
         l = []
 

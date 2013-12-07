@@ -25,6 +25,7 @@ class User:
 
         try:
             self.users.insert(user, safe=True)
+            print "inserting the user"
         except pymongo.errors.OperationFailure:
             print "we have a mongo error"
             return False
