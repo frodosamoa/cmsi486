@@ -27,15 +27,16 @@
 	            <li><a href="/graphs">graphs</a></li>
 	          </ul>
 	          <ul class="nav navbar-nav navbar-right">
+	          	<li><a></a></li>
 	            <li class="dropdown">
-	              <a href="#" class="dropdown-toggle" data-toggle="dropdown">support <b class="caret"></b></a>
+	              <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{username}}<b class="caret"></b></a>
 	              <ul class="dropdown-menu">
 	                <li><a href="#">email</a></li>
+    	           	<li><a href="/logout">logout</a></li>
 	              </ul>
 	            </li>
-	           	<li><a href="/login">logout</a></li>
 	          </ul>
-	        </div>
+	        </div><!--/.nav-collapse -->
 	      </div>
 	    </div>
 
@@ -44,7 +45,7 @@
 			<form action="/newhabit" method="POST">
 			<h4>Name</h4>
 			<input type="text" name="name" size="120" value="{{name}}"><br>
-			<h4>Times<h4>
+			<h4>Times</h4>
 			<input type="text" name="times" size="120" value="{{times}}"><br>
 			<h4>Occurence</h4>
 			<input type="text" name="occurence" size="120" value="{{occurence}}"><br>
