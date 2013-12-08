@@ -16,7 +16,42 @@ body {
 	text-align: center;
 }
 
+
+
+.table-nonfluid {
+   width: auto;
+}
+
 #add-habit {
-	margin-top: 25px;
-	float: right;
+	margin-top: 5px;
+	float: left;
+}
+
+#habit-table td,
+#habit-name-row-table td {
+	text-align: center;
+	width: 150px;
+	height: 30px;
+}
+
+#habit-name-row-table {
+	z-index: 10;
+}
+
+#habit-name-row-table td{
+	background: lightgray;
+}
+
+#habit-name-row-table,
+#habit-table {
+    position: absolute;
+	left:50%;
+}
+
+#habit-name-row-table tr.affix {
+    top: 50px;
+}
+
+#add-habit.affix {
+	top: 50px;
 }
