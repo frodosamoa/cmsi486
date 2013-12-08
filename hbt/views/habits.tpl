@@ -29,7 +29,7 @@
 		      <ul class="nav navbar-nav navbar-right">
 		      	<li><a></a></li>
 		        <li class="dropdown">
-		          <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{username}}<b class="caret"></b></a>
+		          <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{user['username']}}<b class="caret"></b></a>
 		          <ul class="dropdown-menu">
 		            <li><a href="/profile">profile</a></li>
 		           	<li><a href="/logout">logout</a></li>
@@ -40,53 +40,52 @@
 		  </div>
 		</div>
 
+
+		%def habit_row():
+			<tr>
+		%	for habit in myhabits:
+				<td><strong>{{habit['name']}}</strong></td>
+		%	end
+			</tr>
+		%end
+
 	    <div class="container">
-	    	<div class="row">
-	    		<div class="col-md-2">
-					<h1>habits</h1>
-				</div>
-				<div class="col-md-10">
-					<a id="add-habit" type="button" href="/newhabit" class="btn btn-success">new habit</a>
-				</div>
-			</div>
-	    	<div class="row">
-				<div class="col-md-12">
-					<div id="habit-history">
-						<table class="table">
-							<thead>
-								<tr>
-				            	%for habit in myhabits:
-									<td><strong>{{habit['name']}}</strong></td>
+			<h1 class="text-center">{{title}}</h1>
+			<a id="add-habit" type="button" href="/newhabit" class="btn btn-success btn-sm">new habit</a>
+	    	
+			<div id="habit-history">
+				<table id="habit-name-row-table" class="table table-hover table-bordered table-nonfluid">
+		            <tbody>
+						%habit_row()
+					</tbody>
+				</table>
+				<table id="habit-table" class="table table-hover table-bordered table-nonfluid">
+		            <tbody>
+		            	%habit_row()
+		            	%for x in range(days + 1):
+							%today = datetime.datetime.now()
+							%current = datetime.timedelta(days=x)
+							%days = today - current	
+							<tr>							
+			            	%for habit in myhabits:
+			            		%active = datetime.datetime.strptime(habit['dateCreated'], "%Y-%m-%d").date()
+			            		
+			            		%if days.date() >= active:
+									<td>{{days.date()}}</td>
+								%else:
+									<td disabled="disabled">--</td>
 								%end
-								<td><strong>date</strong></td>
-								</tr>
-							</thead>
-				            <tbody>
-				            	%for x in range(days + 1):
-									<tr>
-										%today = datetime.datetime.now()
-										%current = datetime.timedelta(days=x)
-										%days = today - current								
-						            	%for habit in myhabits:
-						            		%active = datetime.datetime.strptime(habit['dateCreated'], "%Y-%m-%d").date()
-						            		%if days.date() >= active:
-												<td>XXX</td>
-											%else:
-												<td></td>
-											%end
-										
-										%end
-										<td>{{days.date()}}</td>
-									</tr>
-								%end
-							</tbody>
-						</table>
-					</div>
-				</div>
+							%end
+							</tr>
+						%end
+					</tbody>
+				</table>
 			</div>
+
 		</div>
 
 		<script src="//code.jquery.com/jquery.js"></script>
 		<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
+		<script src="/static/js/habits.js"></script>
 	</body>
 </html>
