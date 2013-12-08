@@ -29,7 +29,7 @@
 	          <ul class="nav navbar-nav navbar-right">
 	          	<li><a></a></li>
 	            <li class="dropdown">
-	              <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{username}}<b class="caret"></b></a>
+	              <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{user['username']}}<b class="caret"></b></a>
 	              <ul class="dropdown-menu">
 	                <li><a href="/profile">profile</a></li>
     	           	<li><a href="/logout">logout</a></li>
@@ -41,7 +41,7 @@
 	    </div>
 
 	    <div class="container">
-			<h2><span class="glyphicon glyphicon-user"></span> {{username}}</h2>
+			<h2><span class="glyphicon glyphicon-user"></span> {{user['username']}} <small>{{user['dateJoined']}}</small></h2>
 		</div>
 
 
