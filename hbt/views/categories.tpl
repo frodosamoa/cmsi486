@@ -31,7 +31,7 @@
 	            <li class="dropdown">
 	              <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{username}}<b class="caret"></b></a>
 	              <ul class="dropdown-menu">
-	                <li><a href="#">email</a></li>
+	                <li><a href="/profile">profile</a></li>
     	           	<li><a href="/logout">logout</a></li>
 	              </ul>
 	            </li>
@@ -41,9 +41,7 @@
 	    </div>
 
 	    <div class="container">
-	    	<div class="row">
-				<h1>categories</h1>
-			</div>
+			<h1 class="text-center">{{title}}</h1>
 		</div>
 
 		<script src="//code.jquery.com/jquery.js"></script>

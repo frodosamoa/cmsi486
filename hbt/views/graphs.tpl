@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>hbt: graphs</title>
+		<title>hbt</title>
 		<script src="/static/js/Chart.min.js"></script>
 		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
 		<link rel="stylesheet" href="/static/css/hbt.css">
@@ -33,7 +33,7 @@
 	              <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{username}}<b class="caret"></b></a>
 	              <ul class="dropdown-menu">
 	                <li><a href="/profile">profile</a></li>
-    	           	<li><a href="/logout">logout</a></li>>
+    	           	<li><a href="/logout">logout</a></li>
 	              </ul>
 	            </li>
 	          </ul>
@@ -42,7 +42,7 @@
 	    </div>
 
 	    <div class="container">
-	   		<h1 class="text-center">graphs</h1>
+			<h1 class="text-center">{{title}}</h1>
 	   		<canvas id="canvas" height="300" width="600"></canvas>
 	   		<br><br>
 	   		<div class="text-center">

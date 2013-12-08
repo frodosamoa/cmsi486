@@ -41,6 +41,7 @@
 	    </div>
 
 	    <div class="container">
+	    	<h1 class="text-center">{{title}}</h1>
 			<h2><span class="glyphicon glyphicon-user"></span> {{user['username']}} <small>{{user['dateJoined']}}</small></h2>
 		</div>
 
