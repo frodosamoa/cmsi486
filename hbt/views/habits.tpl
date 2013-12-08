@@ -10,75 +10,78 @@
 	<body>
 
 		<div class="navbar navbar-default navbar-fixed-top" role="navigation">
-	      <div class="container">
-	        <div class="navbar-header">
-	          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-	            <span class="sr-only">Toggle navigation</span>
-	            <span class="icon-bar"></span>
-	            <span class="icon-bar"></span>
-	            <span class="icon-bar"></span>
-	          </button>
-	          <a class="navbar-brand" href="/">hbt</a>
-	        </div>
-	        <div class="navbar-collapse collapse">
-	          <ul class="nav navbar-nav">
-	            <li><a href="/">habits</a></li>
-	            <li><a href="/categories">categories</a></li>
-	            <li><a href="/graphs">graphs</a></li>
-	          </ul>
-	          <ul class="nav navbar-nav navbar-right">
-	          	<li><a></a></li>
-	            <li class="dropdown">
-	              <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{username}}<b class="caret"></b></a>
-	              <ul class="dropdown-menu">
-	                <li><a href="#">email</a></li>
-    	           	<li><a href="/logout">logout</a></li>
-	              </ul>
-	            </li>
-	          </ul>
-	        </div><!--/.nav-collapse -->
-	      </div>
-	    </div>
+		  <div class="container">
+		    <div class="navbar-header">
+		      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		        <span class="sr-only">Toggle navigation</span>
+		        <span class="icon-bar"></span>
+		        <span class="icon-bar"></span>
+		        <span class="icon-bar"></span>
+		      </button>
+		      <a class="navbar-brand" href="/">hbt</a>
+		    </div>
+		    <div class="navbar-collapse collapse">
+		      <ul class="nav navbar-nav">
+		        <li><a href="/">habits</a></li>
+		        <li><a href="/categories">categories</a></li>
+		        <li><a href="/graphs">graphs</a></li>
+		      </ul>
+		      <ul class="nav navbar-nav navbar-right">
+		      	<li><a></a></li>
+		        <li class="dropdown">
+		          <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{username}}<b class="caret"></b></a>
+		          <ul class="dropdown-menu">
+		            <li><a href="/profile">profile</a></li>
+		           	<li><a href="/logout">logout</a></li>
+		          </ul>
+		        </li>
+		      </ul>
+		    </div><!--/.nav-collapse -->
+		  </div>
+		</div>
 
 	    <div class="container">
 	    	<div class="row">
-	    		<div class="col-md-4">
+	    		<div class="col-md-2">
 					<h1>habits</h1>
 				</div>
-				<div class="col-md-8">
+				<div class="col-md-10">
 					<a id="add-habit" type="button" href="/newhabit" class="btn btn-success">new habit</a>
 				</div>
 			</div>
 	    	<div class="row">
-	    		<div class="col-md-5">
-					<div id="habit-list">
+				<div class="col-md-12">
+					<div id="habit-history">
 						<table class="table">
 							<thead>
 								<tr>
-									<td>Name</td>
-									<td>Interval</td>
-									<td>Reminders</td>
-									<td>Categories</td>
+				            	%for habit in myhabits:
+									<td><strong>{{habit['name']}}</strong></td>
+								%end
+								<td><strong>date</strong></td>
 								</tr>
 							</thead>
 				            <tbody>
-								%for habit in myhabits:
-								<tr>
-								<td>{{habit['name']}}</td>
-								<td>{{habit['interval']['times']}} times {{habit['interval']['occurence']}}</td>
-								<td>{{habit['reminders']}}</td>
-								<td>
-								%for category in habit['categories']:
-								{{category}},
-								%end
-								</td>
-								</tr>
+				            	%for x in range(days + 1):
+									<tr>
+										%today = datetime.datetime.now()
+										%current = datetime.timedelta(days=x)
+										%days = today - current								
+						            	%for habit in myhabits:
+						            		%active = datetime.datetime.strptime(habit['dateCreated'], "%Y-%m-%d").date()
+						            		%if days.date() >= active:
+												<td>XXX</td>
+											%else:
+												<td></td>
+											%end
+										
+										%end
+										<td>{{days.date()}}</td>
+									</tr>
 								%end
 							</tbody>
 						</table>
 					</div>
-				</div>
-				<div class="col-md-8">
 				</div>
 			</div>
 		</div>
