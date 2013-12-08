@@ -4,6 +4,7 @@ import Day
 import Session
 import User
 import cgi
+import datetime
 
 from bottle import route, get, post, put, debug, run, request, redirect
 from bottle import template, static_file, error, response
@@ -26,8 +27,15 @@ def get_signin():
 @route('/')
 def get_habits():
     username = check_logged_in()
+
+    earliest_date = habits.get_oldest_habit_date(username)
+    today = datetime.datetime.now().date()
+    earliest_date = datetime.datetime.strptime(earliest_date, "%Y-%m-%d").date()
+    delta = today - earliest_date
+
     l = habits.get_habits(username)
-    return template('habits', dict(username=username, myhabits=l))
+    return template('habits', dict(username=username, myhabits=l, 
+                                   days=delta.days, datetime=datetime))
 
 @route('/newhabit')
 def newhabit():
@@ -39,6 +47,12 @@ def newhabit():
 def get_categories():
     username = check_logged_in()
     return template('categories', dict(username=username))
+
+@route('/profile')
+def get_profile():
+    username = check_logged_in()
+    user = users.get_user(username)
+    return template('profile', dict(user=user))
 
 @route('/graphs')
 def get_graphs():

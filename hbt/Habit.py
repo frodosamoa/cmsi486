@@ -54,7 +54,7 @@ class Habit:
     def update_habit(self):
         return 0
 
-    def get_earliest_habit_date(self, username):
+    def get_oldest_habit_date(self, username):
         cursor = self.habits.find({'username' : username}).sort('dateCreated', pymongo.ASCENDING).limit(1)
 
         return cursor[0]['dateCreated']
