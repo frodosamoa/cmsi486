@@ -27,6 +27,7 @@ def get_signin():
 @route('/')
 def get_habits():
     username = check_logged_in()
+    user = users.get_user(username)
 
     earliest_date = habits.get_oldest_habit_date(username)
     today = datetime.datetime.now().date()
@@ -34,7 +35,7 @@ def get_habits():
     delta = today - earliest_date
 
     l = habits.get_habits(username)
-    return template('habits', dict(username=username, myhabits=l, 
+    return template('habits', dict(title="habits", user=user, myhabits=l, 
                                    days=delta.days, datetime=datetime))
 
 @route('/newhabit')
@@ -46,18 +47,18 @@ def newhabit():
 @route('/categories')
 def get_categories():
     username = check_logged_in()
-    return template('categories', dict(username=username))
+    return template('categories', dict(title="categories", username=username))
 
 @route('/profile')
 def get_profile():
     username = check_logged_in()
     user = users.get_user(username)
-    return template('profile', dict(user=user))
+    return template('profile', dict(title="profile", user=user))
 
 @route('/graphs')
 def get_graphs():
     username = check_logged_in()
-    return template('graphs', dict(username=username))
+    return template('graphs', dict(title="graphs", username=username))
 
 @route('/logout')
 def logout():
@@ -125,7 +126,6 @@ def signup():
         print "user did not validate"
         return template("signup", errors)
 
-
 ####
 # PUTS
 ####
@@ -169,8 +169,6 @@ def check_logged_in():
         redirect("/signin")
     else:
         return username
-
-
 
 client = MongoClient('localhost', 27017)
 database = client.hbt
