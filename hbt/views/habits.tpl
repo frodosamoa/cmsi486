@@ -40,7 +40,6 @@
 		  </div>
 		</div>
 
-
 		%def habit_row():
 			<tr>
 		%	for habit in myhabits:
@@ -52,7 +51,9 @@
 	    <div class="container">
 			<h1 class="text-center">{{title}}</h1>
 			<a id="add-habit" type="button" href="/newhabit" class="btn btn-success btn-sm">new habit</a>
-	    	
+        	%if days == 0:
+	        	<p id="dust" class="text-center">... empty dust ...</p>
+        	%end
 			<div id="habit-history">
 				<table id="habit-name-row-table" class="table table-hover table-bordered table-nonfluid">
 		            <tbody>
@@ -61,6 +62,7 @@
 				</table>
 				<table id="habit-table" class="table table-hover table-bordered table-nonfluid">
 		            <tbody>
+
 		            	%habit_row()
 		            	%for x in range(days + 1):
 							%today = datetime.datetime.now()

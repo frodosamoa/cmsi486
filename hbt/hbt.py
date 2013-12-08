@@ -28,15 +28,25 @@ def get_signin():
 def get_habits():
     username = check_logged_in()
     user = users.get_user(username)
+    earliest_date, today, delta = None, None, None
 
-    earliest_date = habits.get_oldest_habit_date(username)
-    today = datetime.datetime.now().date()
-    earliest_date = datetime.datetime.strptime(earliest_date, "%Y-%m-%d").date()
-    delta = today - earliest_date
+    l = habits.get_user_habits(username)
+    if len(l) > 0:
+        earliest_date = habits.get_oldest_habit_date(username)
+        today = datetime.datetime.now().date()
+        earliest_date = datetime.datetime.strptime(earliest_date, "%Y-%m-%d").date()
+        delta = today - earliest_date
 
-    l = habits.get_habits(username)
-    return template('habits', dict(title="habits", user=user, myhabits=l, 
+        # return template('habits', dict(navbar=navbar, title="habits", user=user, myhabits=l, 
+        #                            days=delta.days, datetime=datetime))
+
+        return template('habits', dict(ntitle="habits", user=user, myhabits=l, 
                                    days=delta.days, datetime=datetime))
+
+    # navbar = template('navbar', dict(user=user))
+
+    return template('habits', dict(title="habits", user=user, myhabits=l, 
+                                   days=0, datetime=datetime))
 
 @route('/newhabit')
 def newhabit():

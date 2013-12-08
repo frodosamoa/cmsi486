@@ -33,7 +33,7 @@ class Habit:
             print 'unexpected error:', sys.exc_info()[0]
 
    
-    def get_habits(self, username):
+    def get_user_habits(self, username):
 
         cursor = self.habits.find({'username' : username})
 
