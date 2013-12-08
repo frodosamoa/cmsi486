@@ -3,6 +3,7 @@ import string
 import hashlib
 import pymongo
 import re
+import datetime
 
 class User:
 
@@ -23,7 +24,11 @@ class User:
     def add_user(self, username, password):
         password_hash = self.create_password_hash(password)
 
-        user = {'_id': username, 'password': password_hash}
+        today = datetime.datetime.now().date()
+
+        user = {'_id': username,
+                'password': password_hash,
+                'dateJoined': str(today)}
 
         try:
             self.users.insert(user, safe=True)
@@ -37,7 +42,28 @@ class User:
 
         return True
 
+    def get_user(self, username):
+
+        cursor = self.find_user(username)
+        print cursor
+        user = {'username': cursor['_id'], 'dateJoined' : cursor['dateJoined']}
+
+        return user
+
+
     def validate_login(self, username, password):
+
+        user = self.find_user(username)
+
+        salt = user['password'].split(',')[1]
+
+        if user['password'] != self.create_password_hash(password, salt):
+            print "password doesn't match"
+            return None
+
+        return user
+
+    def find_user(self, username):
 
         user = None
         try:
@@ -47,12 +73,6 @@ class User:
 
         if user is None:
             print "user isn't in database"
-            return None
-
-        salt = user['password'].split(',')[1]
-
-        if user['password'] != self.create_password_hash(password, salt):
-            print "password doesn't match"
             return None
 
         return user
@@ -75,7 +95,7 @@ class User:
             else:
                 errors['password_error'] = "invalid password"
             return False
-            
+
         if password != verify:
             errors['verify_error'] = "passwords don't match"
             return False
