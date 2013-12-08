@@ -13,8 +13,7 @@ class Habit:
     def insert_habit(self, username, name, times, occurence, reminders, categories):
         print 'inserting habit', username, name, times, occurence, reminders, categories
 
-        now = datetime.datetime.now()
-        today = now.strftime("%Y-%m-%d")
+        today = datetime.datetime.now().date()
 
         habit = {'username' : username,
                  'name': name,
@@ -24,7 +23,7 @@ class Habit:
                     },
                  'reminders' : reminders,
                  'categories' : categories,
-                 'dayCreated' : today,
+                 'dateCreated' : str(today)
                 }
         try:
             self.habits.insert(habit, safe=True)
@@ -47,12 +46,18 @@ class Habit:
                           'occurence' : habit['interval']['occurence']
                         },
                       'reminders' : habit['reminders'],
-                      'categories' : habit['categories']})
+                      'categories' : habit['categories'],
+                      'dateCreated' : habit['dateCreated']})
 
         return l
 
     def update_habit(self):
         return 0
+
+    def get_earliest_habit_date(self, username):
+        cursor = self.habits.find({'username' : username}).sort('dateCreated', pymongo.ASCENDING).limit(1)
+
+        return cursor[0]['dateCreated']
 
     def get_habits_by_category(self, username, category):
 
