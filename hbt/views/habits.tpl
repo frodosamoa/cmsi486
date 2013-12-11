@@ -36,7 +36,7 @@
 		          </ul>
 		        </li>
 		      </ul>
-		    </div><!--/.nav-collapse -->
+		    </div>
 		  </div>
 		</div>
 
@@ -64,16 +64,19 @@
 		            <tbody>
 
 		            	%habit_row()
-		            	%for x in range(days + 1):
-							%today = datetime.datetime.now()
-							%current = datetime.timedelta(days=x)
-							%days = today - current	
+						%today = datetime.datetime.now()
+		            	%for x in range(days):
+							%days_between = today - datetime.timedelta(days=x)
 							<tr>							
 			            	%for habit in myhabits:
 			            		%active = datetime.datetime.strptime(habit['dateCreated'], "%Y-%m-%d").date()
 			            		
-			            		%if days.date() >= active:
-									<td>{{days.date()}}</td>
+			            		%if days_between.date() >= active:
+			            			%if habit['completedIntervals'][str(x)]:
+										<td>{{days_between.date()}}</td>
+									%else:
+										<td class="danger">{{days_between.date()}}</td>
+									%end
 								%else:
 									<td disabled="disabled">--</td>
 								%end
@@ -83,7 +86,6 @@
 					</tbody>
 				</table>
 			</div>
-
 		</div>
 
 		<script src="//code.jquery.com/jquery.js"></script>
