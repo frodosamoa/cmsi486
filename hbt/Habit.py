@@ -52,14 +52,14 @@ class Habit:
         return l
 
     def get_habit(self, name):
-        cursor = self.habits.find({'_id': name})
+        habit = self.habits.find_one({'_id': name})
 
-        habit = {'name': cursor[0]['_id'],
-                  'interval' : cursor[0]['interval'],
-                  'occurence' : cursor[0]['occurence'],
-                  'reminders' : cursor[0]['reminders'],
-                  'categories' : cursor[0]['categories'],
-                  'dateCreated' : cursor[0]['dateCreated'],
+        habit = {'name': habit['_id'],
+                  'interval' : habit['interval'],
+                  'occurence' : habit['occurence'],
+                  'reminders' : habit['reminders'],
+                  'categories' : habit['categories'],
+                  'dateCreated' : habit['dateCreated'],
                   'completedIntervals' : habit['completedIntervals']}
 
         return habit
@@ -73,9 +73,7 @@ class Habit:
         
         for habit in habits:
             time_delta = today - datetime.datetime.strptime(habit['dateCreated'], "%Y-%m-%d").date()
-            print habit['completedIntervals']
-            print time_delta.days
-            for day in range(time_delta.days):
+            for day in range(time_delta.days + 1):
                 if str(day) not in habit['completedIntervals']:
                     habit['completedIntervals'][str(day)] = False
             self.update_habit_intervals(habit)
