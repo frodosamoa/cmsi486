@@ -92,7 +92,7 @@ def post_new_habit():
     redirect('/')
 
 @post('/')
-def update_habits_intervals():
+def update_all_habit_intervals():
     username = check_logged_in()
     habit_list = habits.get_user_habits(username)
     today = datetime.datetime.now().date()
@@ -101,8 +101,8 @@ def update_habits_intervals():
         date_created = datetime.datetime.strptime(habit['dateCreated'], "%Y-%m-%d").date()
         days_active = today - date_created
         for day in range(days_active.days, -1, -1):
-            habit_instance = habit['name'].replace(' ', '-') + '-' + str(today - datetime.timedelta(days=day)))
-            habit['completedIntervals'][str(day)] = (request.forms.get(habit_instance == "true")
+            habit_instance = (habit['name'].replace(' ', '-') + '-' + str(today - datetime.timedelta(days=day)))
+            habit['completedIntervals'][str(day)] = request.forms.get(habit_instance) == "true"
         habits.update_habit_intervals(habit)
 
     redirect('/')
