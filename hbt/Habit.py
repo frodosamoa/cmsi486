@@ -23,7 +23,8 @@ class Habit:
                   'categories'         : categories,
                   'dateCreated'        : str(today), 
                   'completedIntervals' : {
-                        '0': False
+                        '0': False,
+                        'count' : 0
                   }
                 }
         try:
@@ -64,24 +65,62 @@ class Habit:
 
         return habit
 
+
+    def update_habit_interval_count(self, habit, count):
+        self.habits.update({'_id' : habit['name']}, {'$set': {'completedIntervals.count' : count} }, upsert=False)
+
     def update_habit_intervals(self, habit):
         self.habits.update({'_id' : habit['name']}, {'$set': {'completedIntervals' : habit['completedIntervals']} }, upsert=False)
 
     def refresh_habits(self, username):
         habits = self.get_user_habits(username)
         today = datetime.datetime.now().date()
+        count = 0
         
         for habit in habits:
             time_delta = today - datetime.datetime.strptime(habit['dateCreated'], "%Y-%m-%d").date()
             for day in range(time_delta.days + 1):
                 if str(day) not in habit['completedIntervals']:
                     habit['completedIntervals'][str(day)] = False
+                else:
+                    count = count + 1 if habit['completedIntervals'][str(day)] else count
+
             self.update_habit_intervals(habit)
+            self.update_habit_interval_count(habit, count)
+            count = 0
+
+        
 
     def get_oldest_habit_date(self, username):
         cursor = self.habits.find({'username' : username}).sort('dateCreated', pymongo.ASCENDING).limit(1)
 
         return cursor[0]['dateCreated']
+
+    def get_categories(self, username):
+        l = self.get_user_habits(username)
+        category_set = set()
+        for habit in l:
+            for cat in habit['categories']:
+                category_set.add(cat)
+
+        return category_set
+
+    def get_best_habits(self, username):
+        cursor = self.habits.find({'username' : username}).sort('completedIntervals.count', pymongo.ASCENDING).limit(10)
+        l = []
+        for habit in cursor:
+            l.append(habit['_id'])
+
+        return l
+
+    def get_worst_habits(self, username):
+        cursor = self.habits.find({'username' : username}).sort('completedIntervals.count', pymongo.DESCENDING).limit(10)
+        l = []
+        for habit in cursor:
+            l.append(habit['_id'])
+
+        return l
+
 
     def get_habits_by_category(self, username, category):
 
