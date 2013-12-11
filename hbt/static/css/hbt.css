@@ -28,8 +28,9 @@ body {
    width: auto;
 }
 
-#add-habit {
+#add-habit, #update-habits {
 	margin-top: 5px;
+	margin-left: 5px;
 	float: left;
 }
 
@@ -58,6 +59,6 @@ body {
     top: 50px;
 }
 
-#add-habit.affix {
+#habit-actions.affix {
 	top: 50px;
 }
