@@ -25,7 +25,11 @@ body {
 }
 
 .table-nonfluid {
-   width: auto;
+	width: auto;
+}
+
+#habit-history {
+	position: relative;
 }
 
 #add-habit, #update-habits {
@@ -45,14 +49,13 @@ body {
 	z-index: 10;
 }
 
-#habit-name-row-table td{
+#habit-name-row-table td {
 	background: lightgray;
 }
 
 #habit-name-row-table,
 #habit-table {
     position: absolute;
-	left:50%;
 }
 
 #habit-name-row-table tr.affix {
