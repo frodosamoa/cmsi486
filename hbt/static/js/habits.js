@@ -7,9 +7,8 @@ $(function() {
 	$('#habit-name-row-table, #habit-table').css('margin-left', -$('#habit-name-row-table').width() / 2);
 	
 	$('#habit-table td').on('click', function() {
-		console.log($(this).attr('disabled'))
 		if ($(this).attr('disabled') !== "disabled") {
-			$(this).toggleClass('success');
+			$(this).toggleClass('success danger');
 		}
 	});
 
