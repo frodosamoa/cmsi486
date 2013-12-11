@@ -49,52 +49,61 @@
 		%end
 
 		<div class="container">
-			<h1 class="text-center">{{title}}</h1>
-			<form class="form-horizontal" role="form" action="/" method="POST">
-				<div id="habit-actions">
-					<a id="add-habit" type="button" href="/newhabit" class="btn btn-success btn-sm">new habit</a>
-					<button id="update-habits" type="submit" class="btn btn-info btn-sm">update habits</button>
-				</div>
-
-				<div id="habit-history">
-					%if max_days == -1:
-						<p id="dust" class="text-center">... empty dust ...</p>
-					%else:
-						<table id="habit-name-row-table" class="table table-hover table-bordered table-nonfluid">
-							<tbody>
-								%habit_row()
-							</tbody>
-						</table>
-						<table id="habit-table" class="table table-hover table-bordered table-nonfluid">
-							<tbody>
-								%habit_row()
-								%today = datetime.datetime.now()
-								%for x in range(max_days):
-									%days_between = today - datetime.timedelta(days=x)
-									<tr>							
-									%for habit in myhabits:
-										%active = datetime.datetime.strptime(habit['dateCreated'], "%Y-%m-%d").date()
-										
-										%if days_between.date() >= active:
-											%habit_id = habit['name'].replace(' ', '-') + "-" + unicode(days_between.date())
-											%if habit['completedIntervals'][str(x)]:
-												<td name="{{habit_id}}" class="success">{{days_between.date()}}</td>
-											%else:
-												<td name="{{habit_id}}" class="danger">{{days_between.date()}}</td>
+			<div class="row">
+				<h1 class="text-center">{{title}}</h1>
+			</div>
+			<div class="row">
+				<form class="form-horizontal" role="form" action="/" method="POST">
+					<div class="col-md-3">
+						<div id="habit-actions">
+							<a id="add-habit" type="button" href="/newhabit" class="btn btn-success btn-sm">new habit</a>
+							<button id="update-habits" type="submit" class="btn btn-info btn-sm">update habits</button>
+						</div>
+					</div>
+					<div class="col-md-9">
+						<div id="habit-history">
+							%if max_days == -1:
+								<p id="dust" class="text-center">... empty dust ...</p>
+							%else:
+								<table id="habit-name-row-table" class="table table-hover table-bordered table-nonfluid">
+									<tbody>
+										%habit_row()
+									</tbody>
+								</table>
+								<table id="habit-table" class="table table-hover table-bordered table-nonfluid">
+									<tbody>
+										%habit_row()
+										%today = datetime.datetime.now()
+										%for x in range(max_days):
+											%days_between = today - datetime.timedelta(days=x)
+											<tr>							
+											%for habit in myhabits:
+												%active = datetime.datetime.strptime(habit['dateCreated'], "%Y-%m-%d").date()
+												
+												%if days_between.date() >= active:
+													%habit_id = habit['name'].replace(' ', '-') + "-" + unicode(days_between.date())
+													%if habit['completedIntervals'][str(x)]:
+														<td name="{{habit_id}}" class="success">{{days_between.date()}}</td>
+													%else:
+														<td name="{{habit_id}}" class="danger">{{days_between.date()}}</td>
+													%end
+														<input type="hidden" id="{{habit_id}}" name="{{habit_id}}" value="{{str(habit['completedIntervals'][str(x)]).lower()}}">
+												%else:
+													<td disabled="disabled" class="active"></td>
+												%end
 											%end
-												<input type="hidden" id="{{habit_id}}" name="{{habit_id}}" value="{{str(habit['completedIntervals'][str(x)]).lower()}}">
-										%else:
-											<td disabled="disabled">--</td>
+											</tr>
 										%end
-									%end
-									</tr>
-								%end
-							</tbody>
-						</table>
-					%end
-				</div>
-			</form>
+									</tbody>
+								</table>
+							%end
+						</div>
+					</div>
+				</form>
+			</div>
 		</div>
+
+														<!-- <span class="glyphicon glyphicon-ok"></span> -->
 
 		<script src="//code.jquery.com/jquery.js"></script>
 		<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
