@@ -5,6 +5,7 @@ import Session
 import User
 import cgi
 import datetime
+import hashlib
 
 from bottle import route, get, post, put, debug, run, request, redirect
 from bottle import template, static_file, error, response
@@ -34,12 +35,14 @@ def get_habits():
     l = habits.get_user_habits(username)
     if len(l) > 0:
         earliest_date = habits.get_oldest_habit_date(username)
-        earliest_date = datetime.datetime.strptime(earliest_date, "%Y-%m-%d").date()
+        earliest_date = datetime.datetime.strptime(earliest_date, '%Y-%m-%d').date()
         delta = today - earliest_date
 
-    return template('habits', dict(title="habits", user=user, myhabits=l, 
-                                   max_days=delta.days if delta else -1, datetime=datetime))
+    habits.refresh_habits(username)
 
+
+    return template('habits', dict(title='habits', user=user, myhabits=l, 
+                                   max_days=delta.days + 1 if delta else -1, datetime=datetime))
 
 @route('/habit/<name>')
 def habit():
@@ -55,25 +58,31 @@ def newhabit():
 @route('/categories')
 def get_categories():
     username = check_logged_in()
-    return template('categories', dict(title="categories", username=username))
+    return template('categories', dict(title='categories', username=username))
 
 @route('/profile')
 def get_profile():
     username = check_logged_in()
     user = users.get_user(username)
-    return template('profile', dict(title="profile", user=user))
+    l = habits.get_user_habits(username)
+    categories = habits.get_categories(username)
+    best_habits = habits.get_best_habits(username)
+    worst_habits = habits.get_worst_habits(username)
+    return template('profile', dict(title='profile', user=user, habits=l,
+                                    categories=categories, best_habits=best_habits,
+                                    worst_habits=worst_habits))
 
 @route('/graphs')
 def get_graphs():
     username = check_logged_in()
-    return template('graphs', dict(title="graphs", username=username))
+    return template('graphs', dict(title='graphs', username=username))
 
 @route('/logout')
 def logout():
-    cookie = request.get_cookie("session")
+    cookie = request.get_cookie('session')
     sessions.end_session(cookie)
-    response.set_cookie("session", "")
-    redirect("/signin")
+    response.set_cookie('session', '')
+    redirect('/signin')
 
 ####
 # POSTS
@@ -98,64 +107,67 @@ def update_all_habit_intervals():
     today = datetime.datetime.now().date()
 
     for habit in habit_list:
-        date_created = datetime.datetime.strptime(habit['dateCreated'], "%Y-%m-%d").date()
+        date_created = datetime.datetime.strptime(habit['dateCreated'], '%Y-%m-%d').date()
         days_active = today - date_created
         for day in range(days_active.days, -1, -1):
-            habit_instance = (habit['name'].replace(' ', '-') + '-' + str(today - datetime.timedelta(days=day)))
-            habit['completedIntervals'][str(day)] = request.forms.get(habit_instance) == "true"
+            habit_instance = str(habit['name'].replace(' ', '-').replace('\'', '') + '-' + str(today - datetime.timedelta(days=day)))
+            print habit_instance, request.forms.get(habit_instance)
+            habit['completedIntervals'][str(day)] = request.forms.get(habit_instance) == 'true'
         habits.update_habit_intervals(habit)
 
     redirect('/')
 
 @post('/signin')
 def signin():
-    username = request.forms.get("username")
-    password = request.forms.get("password")
+    username = request.forms.get('username')
+    password = request.forms.get('password')
 
-    print "user submitted ", username, "pass ", password
+    print 'user submitted ', username, 'pass ', password
 
     user_record = users.validate_login(username, password)
     if user_record:
         session_id = sessions.begin_session(user_record['_id'])
 
         if session_id is None:
-            redirect("/internal_error")
+            redirect('/internal_error')
 
         cookie = session_id
-        response.set_cookie("session", cookie)
+        response.set_cookie('session', cookie)
 
         habits.refresh_habits(username)
 
-        redirect("/")
+        redirect('/')
 
     else:
-        return template("signin", dict(username=cgi.escape(username), password="",
-                                    login_error="invalid login"))
+        return template('signin', dict(username=cgi.escape(username), password='',
+                                    login_error='invalid login'))
 
 @post('/signup')
 def signup():
-    username = request.forms.get("username")
-    password = request.forms.get("password")
-    verify = request.forms.get("verify")
+    username = request.forms.get('username')
+    password = request.forms.get('password')
+    verify = request.forms.get('verify')
 
     errors = {'username': cgi.escape(username)}
     if users.validate_signup(username, password, verify, errors):
 
         if not users.add_user(username, password):  
-            errors['username_error'] = "username already taken"
-            return template("signup", errors)
+            errors['username_error'] = 'username already taken'
+            return template('signup', errors)
 
         session_id = sessions.begin_session(username)
-        print "session id: ", session_id
-        response.set_cookie("session", session_id)
-        redirect("/")
+        print 'session id: ', session_id
+        response.set_cookie('session', session_id)
+        redirect('/')
     else:
-        print "user did not validate"
-        return template("signup", errors)
+        print 'user did not validate'
+        return template('signup', errors)
 
 ####
 # PUTS
 ####
+
+## TODO
 
 @put('/edithabit')
 def edit_habit():
@@ -183,17 +195,21 @@ def server_static(filename):
 
 @error(404)
 def error404(error):
-    return template('404')
+    cookie = request.get_cookie('session')
+    username = sessions.get_username(cookie)
+    return template('404', dict(username = username if username else 'get started',
+                                 profile = 'profile' if username else 'signin',
+                                  logout = 'logout' if username else 'signup'))
 
 ####
 # HELPER FUNCTIONS
 ####
 
 def check_logged_in():
-    cookie = request.get_cookie("session")
+    cookie = request.get_cookie('session')
     username = sessions.get_username(cookie)
     if username is None:
-        redirect("/signin")
+        redirect('/signin')
     else:
         return username
 
