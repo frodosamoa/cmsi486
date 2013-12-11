@@ -40,12 +40,24 @@
 		  </div>
 		</div>
 
-		%def habit_row():
-			<tr>
-		%	for habit in myhabits:
-				<td><strong>{{habit['name']}}</strong></td>
-		%	end
-			</tr>
+		%def habit_row(head=False):			
+			%if head:
+				<thead>
+				<tr>
+				<th class="date-column"></th>
+				%for habit in myhabits:
+					<th class="habit-name-row"><strong>{{habit['name']}}</strong></th>
+				%end
+				</tr>
+				</thead>
+			%else:
+				<tr>
+				<td class="date-column"></td>
+				%for habit in myhabits:
+					<td class="habit-name-row"><strong>{{habit['name']}}</strong></td>
+				%end
+				</tr>
+			%end
 		%end
 
 		<div class="container">
@@ -65,27 +77,25 @@
 							%if max_days == -1:
 								<p id="dust" class="text-center">... empty dust ...</p>
 							%else:
-								<table id="habit-name-row-table" class="table table-hover table-bordered table-nonfluid">
-									<tbody>
-										%habit_row()
-									</tbody>
+								<table id="habit-name-row-table" class="table table-nonfluid">
+									%habit_row()
 								</table>
 								<table id="habit-table" class="table table-hover table-bordered table-nonfluid">
+									%habit_row(True)
 									<tbody>
-										%habit_row()
 										%today = datetime.datetime.now()
 										%for x in range(max_days):
 											%days_between = today - datetime.timedelta(days=x)
-											<tr>							
+											<tr>	
+												<td class="date-column" disabled="disabled">{{days_between.strftime("%a %b %d")}}</td>					
 											%for habit in myhabits:
 												%active = datetime.datetime.strptime(habit['dateCreated'], "%Y-%m-%d").date()
-												
 												%if days_between.date() >= active:
-													%habit_id = habit['name'].replace(' ', '-') + "-" + unicode(days_between.date())
+													%habit_id = habit['name'].replace(' ', '-').replace('\'', '') + "-" + unicode(days_between.date())
 													%if habit['completedIntervals'][str(x)]:
-														<td name="{{habit_id}}" class="success">{{days_between.date()}}</td>
+														<td name="{{habit_id}}" class="success"><span class="glyphicon glyphicon-ok complete"></span></td>
 													%else:
-														<td name="{{habit_id}}" class="danger">{{days_between.date()}}</td>
+														<td name="{{habit_id}}" class="danger"><span class="glyphicon glyphicon-remove todo"></span></td>
 													%end
 														<input type="hidden" id="{{habit_id}}" name="{{habit_id}}" value="{{str(habit['completedIntervals'][str(x)]).lower()}}">
 												%else:
@@ -103,7 +113,6 @@
 			</div>
 		</div>
 
-														<!-- <span class="glyphicon glyphicon-ok"></span> -->
 
 		<script src="//code.jquery.com/jquery.js"></script>
 		<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
