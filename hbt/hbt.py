@@ -38,7 +38,7 @@ def get_habits():
         delta = today - earliest_date
 
     return template('habits', dict(title="habits", user=user, myhabits=l, 
-                                   days= delta.days if delta else 0, datetime=datetime))
+                                   max_days=delta.days if delta else -1, datetime=datetime))
 
 
 @route('/habit/<name>')
@@ -88,6 +88,22 @@ def post_new_habit():
     reminders = request.forms.get('reminders')
     categories = request.forms.get('categories').split(',')
     habits.insert_habit(username, name, interval, occurence, reminders, categories)
+
+    redirect('/')
+
+@post('/')
+def update_habits_intervals():
+    username = check_logged_in()
+    habit_list = habits.get_user_habits(username)
+    today = datetime.datetime.now().date()
+
+    for habit in habit_list:
+        date_created = datetime.datetime.strptime(habit['dateCreated'], "%Y-%m-%d").date()
+        days_active = today - date_created
+        for day in range(days_active.days, -1, -1):
+            habit_instance = habit['name'].replace(' ', '-') + '-' + str(today - datetime.timedelta(days=day)))
+            habit['completedIntervals'][str(day)] = (request.forms.get(habit_instance == "true")
+        habits.update_habit_intervals(habit)
 
     redirect('/')
 
