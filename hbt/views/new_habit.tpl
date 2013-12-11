@@ -41,42 +41,52 @@
 	    </div>
 
 	    <div class="container">
-			<h2>new habit</h2>
-			<form id="new" action="/newhabit" method="POST">
-			<h4>name</h4>
-			<input type="text" name="name" size="120" value="{{name}}"><br>
-			<h4>interval</h4>
-			<input type="checkbox">
-			<div class="btn-toolbar">
-				<div id="occurence" class="btn-group" data-toggle="buttons">
-					<label class="btn btn-default">
-						<input type="checkbox" name="once" id="once">once
-					</label>
-					<label class="btn btn-default">
-						<input type="checkbox" name="twice" id="twice">twice
-					</label>
-					<label id="thrice" class="btn btn-default">
-						<input type="checkbox" name="thrice" id="thrice">thrice
-					</label>
-				</div>
-				<div id="interval" class="btn-group" data-toggle="buttons">
-					<label id="daily" class="btn btn-default">
-						<input type="checkbox" name="daily" id="daily">daily
-					</label>
-					<label id="weekly" class="btn btn-default">
-						<input type="checkbox" name="weekly" id="weekly">weekly
-					</label>
-					<label id="monthly" class="btn btn-default">
-						<input type="checkbox" name="monthly" id="monthly">monthly
-					</label>
-				</div>
-			</div>
-			<h4>reminders</h4>
-			<input type="text" name="reminders" size="120" value="{{reminders}}"><br>
-			<h4>categories</h4>
-			<input type="text" name="categories" size="120" value="{{categories}}"><br>
-			<br>
-			<button type="submit" class="btn btn-success">add habit</button>
+	    	<div class="col-sm-2"></div>
+			<div class="col-sm-10"><h2>new habit</h2></div>
+			<form class="form-horizontal" role="form" action="/newhabit" method="POST">
+			  <div class="form-group">
+			    <label for="name" class="col-sm-2 control-label">name</label>
+			    <div class="col-sm-10">
+			      <input type="text" name="name" id="name" size="120" value="{{name}}" class="form-control" placeholder="take vitamins, beef up resume, floss, etc.">
+			    </div>
+			  </div>
+			  <div class="form-group">
+			    <label for="interval" class="col-sm-2 control-label">interval</label>
+			    <div class="col-sm-10">
+					<select name="interval" id="interval" class="form-control">
+						<option>daily</option>
+						<option>weekly</option>
+						<option>monthly</option>
+					</select>
+			    </div>
+			  </div>
+  			  <div class="form-group">
+			    <label for="occurence" class="col-sm-2 control-label">occurence</label>
+			    <div class="col-sm-10">
+  					<select name="occurence" id="occurence" class="form-control">
+						<option>once</option>
+						<option>twice</option>
+						<option>thrice</option>
+					</select>
+			    </div>
+			  </div>
+			  <div class="form-group">
+			    <label for="reminders" class="col-sm-2 control-label">reminders</label>
+			    <div class="col-sm-10">
+			      <input type="text" name="reminders" id="reminders" class="form-control" placeholder="bring canteen, make sure to check LinkedIn, bring ear plugs, etc.">
+			    </div>
+			  </div>
+  			  <div class="form-group">
+			    <label for="categories" class="col-sm-2 control-label">categories</label>
+			    <div class="col-sm-10">
+			      <input type="text" name="categories" id="categories" class="form-control" placeholder="body, self-improvement, cleaning, etc.">
+			    </div>
+			  </div>
+			  <div class="form-group">
+			    <div class="col-sm-offset-2 col-sm-10">
+			      <button type="submit" class="btn btn-success">add habit</button>
+			    </div>
+			  </div>
 			</form>
 		</div>
 
