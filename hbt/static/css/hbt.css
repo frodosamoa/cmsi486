@@ -36,8 +36,8 @@ body {
 #habit-table td,
 #habit-name-row-table td {
 	text-align: center;
-	width: 150px;
-	height: 30px;
+	width: 120px;
+	height: 25px;
 }
 
 #habit-name-row-table {
