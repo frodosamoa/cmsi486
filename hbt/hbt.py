@@ -28,30 +28,28 @@ def get_signin():
 def get_habits():
     username = check_logged_in()
     user = users.get_user(username)
-    earliest_date, today, delta = None, None, None
+    today = datetime.datetime.now().date()
+    earliest_date, delta = None, None
 
     l = habits.get_user_habits(username)
     if len(l) > 0:
         earliest_date = habits.get_oldest_habit_date(username)
-        today = datetime.datetime.now().date()
         earliest_date = datetime.datetime.strptime(earliest_date, "%Y-%m-%d").date()
         delta = today - earliest_date
 
-        # return template('habits', dict(navbar=navbar, title="habits", user=user, myhabits=l, 
-        #                            days=delta.days, datetime=datetime))
-
-        return template('habits', dict(ntitle="habits", user=user, myhabits=l, 
-                                   days=delta.days, datetime=datetime))
-
-    # navbar = template('navbar', dict(user=user))
-
     return template('habits', dict(title="habits", user=user, myhabits=l, 
-                                   days=0, datetime=datetime))
+                                   days= delta.days if delta else 0, datetime=datetime))
+
+
+@route('/habit/<name>')
+def habit():
+    habit = habit.get_habit(name)
+    return template('habit', dict(habit=habit, name=habit['_id']))
 
 @route('/newhabit')
 def newhabit():
     username = check_logged_in()
-    return template('new_habit', dict(username=username, name='', times = '',
+    return template('new_habit', dict(username=username, name='', interval = '',
                                       occurence='', reminders='', categories=''))
 
 @route('/categories')
@@ -85,11 +83,11 @@ def logout():
 def post_new_habit():
     username = check_logged_in()
     name = request.forms.get('name')
-    times = request.forms.get('times')
+    interval = request.forms.get('interval')
     occurence = request.forms.get('occurence')
     reminders = request.forms.get('reminders')
     categories = request.forms.get('categories').split(',')
-    habits.insert_habit(username, name, times, occurence, reminders, categories)
+    habits.insert_habit(username, name, interval, occurence, reminders, categories)
 
     redirect('/')
 
@@ -109,6 +107,9 @@ def signin():
 
         cookie = session_id
         response.set_cookie("session", cookie)
+
+        habits.refresh_habits(username)
+
         redirect("/")
 
     else:
