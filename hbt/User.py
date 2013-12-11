@@ -45,7 +45,6 @@ class User:
     def get_user(self, username):
 
         cursor = self.find_user(username)
-        print cursor
         user = {'username': cursor['_id'], 'dateJoined' : cursor['dateJoined']}
 
         return user
