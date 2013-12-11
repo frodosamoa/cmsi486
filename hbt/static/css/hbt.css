@@ -38,7 +38,16 @@ body {
 	float: left;
 }
 
+.complete {
+	color: #4C9900;
+}
+
+.todo {
+	color: #990000;
+}
+
 #habit-table td,
+#habit-table th,
 #habit-name-row-table td {
 	text-align: center;
 	width: 120px;
@@ -49,7 +58,7 @@ body {
 	z-index: 10;
 }
 
-#habit-name-row-table td {
+.habit-name-row {
 	background: lightgray;
 }
 
