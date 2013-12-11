@@ -11,32 +11,32 @@
 
 		<div class="navbar navbar-default navbar-fixed-top" role="navigation">
 		  <div class="container">
-		    <div class="navbar-header">
-		      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-		        <span class="sr-only">Toggle navigation</span>
-		        <span class="icon-bar"></span>
-		        <span class="icon-bar"></span>
-		        <span class="icon-bar"></span>
-		      </button>
-		      <a class="navbar-brand" href="/">hbt</a>
-		    </div>
-		    <div class="navbar-collapse collapse">
-		      <ul class="nav navbar-nav">
-		        <li><a href="/">habits</a></li>
-		        <li><a href="/categories">categories</a></li>
-		        <li><a href="/graphs">graphs</a></li>
-		      </ul>
-		      <ul class="nav navbar-nav navbar-right">
-		      	<li><a></a></li>
-		        <li class="dropdown">
-		          <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{user['username']}}<b class="caret"></b></a>
-		          <ul class="dropdown-menu">
-		            <li><a href="/profile">profile</a></li>
-		           	<li><a href="/logout">logout</a></li>
-		          </ul>
-		        </li>
-		      </ul>
-		    </div>
+			<div class="navbar-header">
+			  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			  </button>
+			  <a class="navbar-brand" href="/">hbt</a>
+			</div>
+			<div class="navbar-collapse collapse">
+			  <ul class="nav navbar-nav">
+				<li><a href="/">habits</a></li>
+				<li><a href="/categories">categories</a></li>
+				<li><a href="/graphs">graphs</a></li>
+			  </ul>
+			  <ul class="nav navbar-nav navbar-right">
+				<li><a></a></li>
+				<li class="dropdown">
+				  <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{user['username']}}<b class="caret"></b></a>
+				  <ul class="dropdown-menu">
+					<li><a href="/profile">profile</a></li>
+					<li><a href="/logout">logout</a></li>
+				  </ul>
+				</li>
+			  </ul>
+			</div>
 		  </div>
 		</div>
 
@@ -48,44 +48,52 @@
 			</tr>
 		%end
 
-	    <div class="container">
+		<div class="container">
 			<h1 class="text-center">{{title}}</h1>
-			<a id="add-habit" type="button" href="/newhabit" class="btn btn-success btn-sm">new habit</a>
-        	%if days == 0:
-	        	<p id="dust" class="text-center">... empty dust ...</p>
-        	%end
-			<div id="habit-history">
-				<table id="habit-name-row-table" class="table table-hover table-bordered table-nonfluid">
-		            <tbody>
-						%habit_row()
-					</tbody>
-				</table>
-				<table id="habit-table" class="table table-hover table-bordered table-nonfluid">
-		            <tbody>
+			<form class="form-horizontal" role="form" action="/" method="POST">
+				<div id="habit-actions">
+					<a id="add-habit" type="button" href="/newhabit" class="btn btn-success btn-sm">new habit</a>
+					<button id="update-habits" type="submit" class="btn btn-info btn-sm">update habits</button>
+				</div>
 
-		            	%habit_row()
-						%today = datetime.datetime.now()
-		            	%for x in range(days):
-							%days_between = today - datetime.timedelta(days=x)
-							<tr>							
-			            	%for habit in myhabits:
-			            		%active = datetime.datetime.strptime(habit['dateCreated'], "%Y-%m-%d").date()
-			            		
-			            		%if days_between.date() >= active:
-			            			%if habit['completedIntervals'][str(x)]:
-										<td>{{days_between.date()}}</td>
-									%else:
-										<td class="danger">{{days_between.date()}}</td>
+				<div id="habit-history">
+					%if max_days == -1:
+						<p id="dust" class="text-center">... empty dust ...</p>
+					%else:
+						<table id="habit-name-row-table" class="table table-hover table-bordered table-nonfluid">
+							<tbody>
+								%habit_row()
+							</tbody>
+						</table>
+						<table id="habit-table" class="table table-hover table-bordered table-nonfluid">
+							<tbody>
+								%habit_row()
+								%today = datetime.datetime.now()
+								%for x in range(max_days):
+									%days_between = today - datetime.timedelta(days=x)
+									<tr>							
+									%for habit in myhabits:
+										%active = datetime.datetime.strptime(habit['dateCreated'], "%Y-%m-%d").date()
+										
+										%if days_between.date() >= active:
+											%habit_id = habit['name'].replace(' ', '-') + "-" + unicode(days_between.date())
+											%if habit['completedIntervals'][str(x)]:
+												<td name="{{habit_id}}" class="success">{{days_between.date()}}</td>
+											%else:
+												<td name="{{habit_id}}" class="danger">{{days_between.date()}}</td>
+											%end
+												<input type="hidden" id="{{habit_id}}" name="{{habit_id}}" value="{{str(habit['completedIntervals'][str(x)]).lower()}}">
+										%else:
+											<td disabled="disabled">--</td>
+										%end
 									%end
-								%else:
-									<td disabled="disabled">--</td>
+									</tr>
 								%end
-							%end
-							</tr>
-						%end
-					</tbody>
-				</table>
-			</div>
+							</tbody>
+						</table>
+					%end
+				</div>
+			</form>
 		</div>
 
 		<script src="//code.jquery.com/jquery.js"></script>
