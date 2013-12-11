@@ -58,7 +58,9 @@ def newhabit():
 @route('/categories')
 def get_categories():
     username = check_logged_in()
-    return template('categories', dict(title='categories', username=username))
+    categories = habits.get_categories(username)
+    return template('categories', dict(title='categories', username=username,
+                                       categories=categories))
 
 @route('/profile')
 def get_profile():
