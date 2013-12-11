@@ -46,12 +46,16 @@ body {
 	color: #990000;
 }
 
+.date-column {
+	width: 110px !important;
+}
+
 #habit-table td,
 #habit-table th,
-#habit-name-row-table td {
+#habit-name-row-table td,
+#habit-name-row-table th {
 	text-align: center;
-	width: 120px;
-	height: 25px;
+	width: auto;
 }
 
 #habit-name-row-table {
