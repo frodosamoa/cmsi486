@@ -26,6 +26,7 @@ def get_signin():
     return template('signin', dict(username='', password='', login_error=''))
 
 @route('/')
+@route('/habits')
 def get_habits():
     username = check_logged_in()
     user = users.get_user(username)
@@ -199,9 +200,7 @@ def server_static(filename):
 def error404(error):
     cookie = request.get_cookie('session')
     username = sessions.get_username(cookie)
-    return template('404', dict(username = username if username else 'get started',
-                                 profile = 'profile' if username else 'signin',
-                                  logout = 'logout' if username else 'signup'))
+    return template('404', dict(username=username))
 
 ####
 # HELPER FUNCTIONS
